@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Sample Form</title>
+</head>
+<body>
+
+<form name="DatosP" 
+    target="primera"
+    action="mailto:usuario@dominio"
+    method= POST
+    enctype="Text/plain">
+<p>NOMBRE: <input type="text" size="10" name="texto1"> </p>
+<p>APELLIDOS: <input type="text" size="15" name="texto2"> </p>
+</form> 
+
+
+<script>
+
+var nombreFormulario = document.forms["DatosP"].name;
+var enviado=document.forms["DatosP"].action;
+var mandar=document.forms["DatosP"].enctype;
+var elementos=document.forms["DatosP"].length;
+var metodo=document.forms["DatosP"].method;
+var pantalla=document.forms["DatosP"].target;
+document.write("El nombre del formulario es " + nombreFormulario + "<br>"+
+                "El formulario es enviado a " + enviado + "<br>"+ 
+                "El formulario mandará sus datos codificados como: " + mandar + "<br>"+
+                "El formulario contiene " +elementos + " elementos"+ "<br>"+
+                "El formulario se envía por el método: " + metodo+ "<br>"+
+                "El formulario se muestra en la pantalla llamada: " + pantalla
+);
+
+
+</script>
+
+</body>
+</html>
+

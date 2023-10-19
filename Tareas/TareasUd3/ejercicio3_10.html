@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+</head>
+<body>
+    Edad:
+    <br>
+    <select id="miSelect">
+        <option>Menor de 18</option>
+        <option>Entre 18 y 60</option>
+        <option>Mayor de 60</option>
+    </select>
+    <br>
+    <button onclick="vervalores()">Ver Valores</button>
+    <script>
+ 
+  function vervalores(){
+    
+    alert("Elementos:" +miSelect.length +"\n"+
+    miSelect.options[miSelect.selectedIndex].text);
+
+  }
+    </script>
+</body>
+</html>

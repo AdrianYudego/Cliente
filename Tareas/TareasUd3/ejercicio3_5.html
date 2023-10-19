@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Cambiar Color de Fondo</title>
+</head>
+<body>
+    <h1>Cambiar Color de Fondo</h1>
+    <p>Selecciona un color para el fondo de la página:</p>
+    
+    <form id="colorForm">
+        <select id="color" required>
+            <option value="blue">Azul</option>
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="black">Negro</option>
+        </select>
+        <button onclick="cambiarColor()">Selecciona</button>
+    </form>
+    
+    <script>
+       
+        function cambiarColor() {
+            
+            
+            var color = document.getElementById("color").value;
+            
+           
+            document.bgColor = color;
+        }
+        
+        
+      
+    </script>
+</body>
+</html>
+
+

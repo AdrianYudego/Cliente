@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <div id="bombilla" style="width: 100px; height: 100px; background-color: grey; border-radius: 50%; display: flex; justify-content: center; align-items: center;" onclick="encenderapagar()">
+    </div>
+    <script>
+
+        var encendido;
+        
+
+        function encenderapagar(){
+            if(encendido){
+                bombilla.style.backgroundColor="grey";
+                encendido=false;
+            }else{
+                bombilla.style.backgroundColor="yellow";
+                encendido=true;
+            }
+        }
+    </script>
+</body>
+</html>
