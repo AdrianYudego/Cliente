@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ejemplo de ventana emergente</title>
+    <script>
+        let ventanaHija;
+
+        function abrirVentana() {
+            // Abre una nueva ventana con las dimensiones especificadas
+            ventanaHija = window.open('', '', 'width=300,height=200');
+
+            // Crea el contenido de la nueva ventana
+            ventanaHija.document.write('<html><head><title>Ventana Hija</title></head><body>');
+            ventanaHija.document.write('<h1>Ventana Hija</h1>');
+            ventanaHija.document.write('<p>Esta es una ventana emergente de ejemplo.</p>');
+            ventanaHija.document.write('<button onclick="cerrarVentana()">Cerrar Ventana</button>');
+            ventanaHija.document.write('</body></html>');
+
+            // Cierra el documento de la ventana hija
+            ventanaHija.document.close();
+        }
+
+        function cerrarVentana() {
+            ventanaHija.close();
+            alert("La ventana hija ha sido cerrada.");
+        }
+    </script>
+</head>
+<body>
+    <h1>Ventana Padre</h1>
+    <button onclick="abrirVentana()">Abrir Ventana Hija</button>
+</body>
+</html>
+

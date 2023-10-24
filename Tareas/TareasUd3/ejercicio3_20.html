@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    
+    <button onclick="abrir()">Abrir hija</button>
+    <script>
+        var ventanaHija;
+
+        function abrir() {
+    
+            ventanaHija = window.open('', '', 'width=300,height=200');
+            ventanaHija.document.write('<button onclick="cerrar()">Cerrar ventana</button>');
+            
+        }
+
+        function cerrar() {
+            ventanaHija.close();
+            alert("Se cerró la ventana hija");
+        }
+    </script>
+</body>
+</html>

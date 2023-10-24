@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+</head>
+<body>
+    <form>
+        <input type="text" id="prefijo" value="+"> <button onclick="abrir()">?</button> <input type="text" id="numero">
+      
+   
+    </form>
+    <script>
+  var ventanaHija;
+  
+  function abrir() {
+    
+    ventanaHija = window.open('', '', 'width=300,height=200');
+    ventanaHija.document.write (
+    "España:", '<button onclick="prefijo(+34)">+34</button>',"<br>",
+    "Holanda:",'<button onclick="prefijo(+3)">+3</button>',"<br>",
+    "Inglaterra:",'<button onclick="prefijo(+4)">+4</button>',"<br>",
+    "Alemania:",'<button onclick="prefijo(5)">+5</button>');
+}
+
+function prefijo(prefijo){
+    document.prefijo.value=prefijo;
+    ventanaHija.close();
+    
+
+}
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Calculadora</title>
+    <style>
+        #calculadora {
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        #forma{
+            width: 250px;
+            border: 3px solid #000000;
+            padding: 10px;
+        }
+        #styl1{
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div id="forma">
+    <div id="calculadora">
+        <input type="text" id="numeros" disabled>
+        <br>
+        <button onclick="anadir('7')">7</button>
+        <button onclick="anadir('8')">8</button>
+        <button onclick="anadir('9')">9</button>
+        <button onclick="anadir('/')">/</button>
+        <br>
+        <button onclick="anadir('4')">4</button>
+        <button onclick="anadir('5')">5</button>
+        <button onclick="anadir('6')">6</button>
+        <button onclick="anadir('*')">*</button>
+        <br>
+        <button onclick="anadir('1')">1</button>
+        <button onclick="anadir('2')">2</button>
+        <button onclick="anadir('3')">3</button>
+        <button onclick="anadir('-')">-</button>
+        <br>
+        <button onclick="anadir('0')">0</button>
+        <button onclick="anadir('.')">.</button>
+        <button onclick="">+/-</button>
+        <button onclick="anadir('+')">+</button>
+        <br>
+        <button onclick="anadir('0')"> (</button>
+        <button onclick="anadir(')')"> )</button>
+        <button onclick="calcularRaiz()">sqrt</button>
+        <button onclick="">-></button>
+        <br>
+        <button onclick="resetear()" id="styl1">C</button>
+        <button onclick="calcularResultado()" id="styl1">=</button>
+    </div>
+    </div>
+    <script>
+        var calcular = document.getElementById('numeros');
+
+        function anadir(n) {
+            calcular.value += n;
+        }
+
+        function calcularResultado() {
+            try {
+                calcular.value = eval(calcular.value);
+            } catch (error) {
+                calcular.value = 'Error';
+            }
+        }
+
+        function calcularRaiz() {
+            var valor = parseFloat(calcular.value);
+            if (!isNaN(valor) && valor >= 0) {
+                calcular.value = Math.sqrt(valor);
+            } else {
+                calcular.value = 'Error';
+            }
+        }
+
+        function resetear() {
+            calcular.value = "";
+        }
+
+        
+    </script>
+</body>
+</html>
+

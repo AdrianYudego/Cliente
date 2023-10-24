@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Cambiar Color de Fondo</title>
+</head>
+<body>
+    <h1>Cambiar Color de Fondo</h1>
+    <p>Selecciona un color para el fondo de la página:</p>
+    
+    <form id="colorForm">
+        
+            Color:
+            <input type="text" name="color" id="color">
+        
+        <button onclick="cambiarColor(event)">Enviar</button> 
+    </form>
+    
+    <script>
+       
+        function cambiarColor(event) {
+            event.preventDefault();
+            
+            var color = document.getElementById("color").value;
+            
+           
+            document.bgColor = color;
+        }
+        
+        
+    </script>
+</body>
+</html>

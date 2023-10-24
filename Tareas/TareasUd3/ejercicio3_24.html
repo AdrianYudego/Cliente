@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  
+    <style>
+     
+    </style>
+</head>
+<body>
+  
+    <script>
+        
+        var nombre=document.getElementById('nombre').value;
+        var email=document.getElementById('email').value;
+        var mensaje=document.getElementById('mensaje').value;
+        function enviar(){
+            
+           if((email.includes('@' && '.com')) && (nombre.length>6 && isNaN(nombre)) && (mensaje.length>10) ){
+                alert("Válido");
+           }else{
+            alert("Hay un error");
+           }
+
+        }
+        
+    </script>
+    <h1>BIENVENIDO</h1>
+    <form id="formulario">
+        Email:<input type="text" id="email"><br><br>
+        Introduce tu nombre:<input type="text" id="nombre"><br><br>
+        Mensaje:<input type="text" id="mensaje" style="width: 300px;
+        height: 100px;"><br><br>
+        <button onclick="enviar()">Enviar</button> <button onclick="clear()">Clear</button>
+    </form>
+</body>
+</html>
+
