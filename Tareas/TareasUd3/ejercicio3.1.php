@@ -1,9 +1,0 @@
-<script>
-alert( "domain: "   + document.domain );
-alert( "referrer: " + document.referrer );
-alert( "URL: "      + document.URL ); 
-alert( "aLinkColor: "      + document.aLinkColor ); 
-alert( "bgColor: "      + document.bgColor );
-alert( "classes: "      + document.classes );
-alert( "fgColor: "      + document.fgColor );
-    </script>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,32 +25,3 @@
     </script>
 </body>
 </html>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Calculadora Simple</title>
-</head>
-<body>
-    
-    <input type="text" id="operacion" >
-    <button onclick="calcularResultado()">Calcular</button>
-    <p id="mostrar"></p>
-
-    <script>
-        function calcularResultado() {
-           
-            var operacion = document.getElementById("operacion").value;
-
-            try {
-
-                document.getElementById("mostrar").textContent = eval(operacion);
-            } catch (error) {
-                
-                document.getElementById("mostrar").textContent = "Error en la operación";
-            }
-        }
-    </script>
-</body>
-</html>
->>>>>>> ad8f80bbb8846b83b597e76e397cd44b195a2b19
