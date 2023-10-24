@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -22,3 +23,29 @@ function mostrar(){
     </script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="es">
+<head>
+</head>
+<body>
+    <form name="formulario">
+    Opción 1<input type="checkbox" name="check1">
+    <br>
+    Opción 2<input type="checkbox" name="check2">
+    <br>
+    Opción 3<input type="checkbox" name="check3">
+    <br>
+    <button onclick="mostrar()">Ver valores</button> 
+</form>
+    <script>
+
+function mostrar(){
+    alert("Opción 1: "+ document.formulario.check1.checked + "\n"+
+    "Opción 2: "+ document.formulario.check2.checked + "\n"+
+    "Opción 3: "+ document.formulario.check3.checked);
+}
+    </script>
+</body>
+</html>
+>>>>>>> ad8f80bbb8846b83b597e76e397cd44b195a2b19
