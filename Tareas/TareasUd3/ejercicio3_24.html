@@ -1,37 +1,48 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  
     <style>
-     
     </style>
 </head>
 <body>
-  
-    <script>
-        
-        var nombre=document.getElementById('nombre').value;
-        var email=document.getElementById('email').value;
-        var mensaje=document.getElementById('mensaje').value;
-        function enviar(){
-            
-           if((email.includes('@' && '.com')) && (nombre.length>6 && isNaN(nombre)) && (mensaje.length>10) ){
-                alert("Válido");
-           }else{
-            alert("Hay un error");
-           }
-
-        }
-        
-    </script>
     <h1>BIENVENIDO</h1>
     <form id="formulario">
-        Email:<input type="text" id="email"><br><br>
-        Introduce tu nombre:<input type="text" id="nombre"><br><br>
-        Mensaje:<input type="text" id="mensaje" style="width: 300px;
-        height: 100px;"><br><br>
-        <button onclick="enviar()">Enviar</button> <button onclick="clear()">Clear</button>
+        Email: <input type="text" id="email"><br><br>
+        Introduce tu nombre: <input type="text" id="nombre"><br><br>
+        Mensaje: <textarea id="mensaje" style="width: 300px; height: 100px;"></textarea><br><br>
+        <button onclick="enviar()">Enviar</button> <button onclick="limpiarFormulario()">Clear</button>
     </form>
+
+    <script>
+        var nombre = document.getElementById('nombre');
+        var email = document.getElementById('email');
+        var mensaje = document.getElementById('mensaje');
+
+        function enviar() {
+            try {
+                if (!nombre.value || nombre.value.length < 6) {
+                    throw new Error("Nombre no válido");
+                }
+
+                if (!email.value.includes('@') || !email.value.endsWith('.com')) {
+                    throw new Error("Email no válido");
+                }
+
+                if (mensaje.value.length < 10) {
+                    throw new Error("Mensaje demasiado corto");
+                }
+
+                alert("Correcto, formulario enviado");
+                
+            } catch (error) {
+                alert("Error: " + error.message);
+                
+            }
+        }
+
+        function limpiarFormulario() {
+            document.getElementById('formulario').reset();
+        }
+    </script>
 </body>
 </html>
-
