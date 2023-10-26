@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head> 
+</head>
+<body>
+   
+    
+    <input type="text" id="caja1" >
+    <input type="text" id="caja2" >
+    
+    <br>
+    
+    <button onclick="pasarDe1a2()">Pasar de 1 a 2</button>
+    <button onclick="pasarDe2a1()">Pasar de 2 a 1</button>
+    
+    <script>
+        function pasarDe1a2() {
+            var caja1 = document.getElementById('caja1');
+            var caja2 = document.getElementById('caja2');
+            caja2.value = caja1.value;
+            caja1.value = '';
+        }
+        
+        function pasarDe2a1() {
+            var caja1 = document.getElementById('caja1');
+            var caja2 = document.getElementById('caja2');
+            caja1.value = caja2.value;
+            caja2.value = '';
+        }
+    </script>
+</body>
+</html>
+
+
