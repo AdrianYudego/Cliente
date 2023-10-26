@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+</head>
+<body>
+    <h1>Apertura de múltiples ventanas(5)</h1>
+    <button onclick="abrir()">Abrir 'Ventana'</button>
+    Introduce:<input tyoe="text" id="numero">
+    <script>
+
+
+        function abrir() {
+              var num=document.getElementById('numero').value;
+            for (var i = 0; i < num; i++) {
+                ventanaHija = window.open('', '', 'width=300,height=400');
+                ventanaHija.document.write('<html><head></head><body><h1>Ventana ' + i + '</h1>');
+                ventanaHija.document.write('<input type="button" value="Cerrar ventana" onclick="window.close()">');
+                ventanaHija.document.write('</body></html>');
+            }
+        }
+    </script>
+</body>
+</html>
+

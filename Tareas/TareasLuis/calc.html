@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Calculadora</title>
+    <style>
+     
+      
+    </style>
+</head>
+<body>
+    
+    <div id="calculadora">
+        <input type="text" id="caja">
+        <br>
+        <button onclick="anadir('7')">7</button>
+        <button onclick="anadir('8')">8</button>
+        <button onclick="anadir('9')">9</button>
+        <button onclick="anadir('*')">*</button>
+        <br>
+        <button onclick="anadir('4')">4</button>
+        <button onclick="anadir('5')">5</button>
+        <button onclick="anadir('6')">6</button>
+        <button onclick="anadir('-')">-</button>
+        <br>
+        <button onclick="anadir('1')">1</button>
+        <button onclick="anadir('2')">2</button>
+        <button onclick="anadir('3')">3</button>
+        <button onclick="anadir('+')">+</button>
+        <br>
+        <button onclick="elegirFuncion('c')">C</button>
+        <button onclick="anadir('0')"> 0</button>
+        <button onclick="elegirFuncion('=')">=</button>
+        <button onclick="anadir('/')">/</button>
+       
+    </div>
+    
+    <script>
+
+        var calc=document.getElementById("caja");
+
+        function anadir(num){
+      
+        calc.value+=num;
+
+        }
+
+        function elegirFuncion(x){
+            
+            if(x==="="){
+
+                calc.value = eval(calc.value);
+
+            }else if(x==="c"){
+                calc.value=" ";
+            }
+        }
+        
+    </script>
+</body>
+</html>
+
