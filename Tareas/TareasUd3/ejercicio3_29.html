@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manipulación de Cajas de Texto</title>
+</head>
+<body>
+    <h1>Manipulación de Cajas de Texto</h1>
+    
+    <input type="text" id="caja1" >
+    <input type="text" id="caja2" >
+    <input type="text" id="caja3" >
+    
+    <br>
+    
+    <button onclick="seleccionarTexto(1)">Seleccionar Texto en Caja 1</button>
+    <button onclick="seleccionarTexto(2)">Seleccionar Texto en Caja 2</button>
+    <button onclick="seleccionarTexto(3)">Seleccionar Texto en Caja 3</button>
+    
+    <br>
+    
+    <button onclick="ponerFocoEnCajaAleatoria()">Poner Foco</button>
+    
+    
+    <br>
+    
+    <button onclick="quitarFoco()">Quitar Foco</button>
+    
+    <script>
+        function seleccionarTexto(cajaNum) {
+            var caja = document.getElementById('caja' + cajaNum);
+            caja.select();
+        }
+        
+        function ponerFocoEnCajaAleatoria() {
+            var cajas = [document.getElementById('caja1'), document.getElementById('caja2'), document.getElementById('caja3')];
+            var cajaAleatoria = cajas[Math.floor(Math.random() * cajas.length)];
+            cajaAleatoria.focus();
+        }
+        
+        function quitarFoco() {
+            document.activeElement.blur();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <style>
+    </style>
+</head>
+<body>
+    <h1>Registro de Usuario</h1>
+    <form id="registroForm">
+        Nombre: <input type="text" id="nombre"><br><br>
+        Número de Teléfono: <input type="text" id="telefono"><br><br>
+        E-mail: <input type="text" id="email"><br><br>
+        Información Adicional (Opcional): <textarea id="info" style="width: 300px; height: 100px;"></textarea><br><br>
+        
+        <label for="checkbox1">
+            <input type="checkbox" id="checkbox1"> Acepto los términos y condiciones
+        </label><br><br>
+
+        <label for="checkbox2">
+            <input type="checkbox" id="checkbox2"> Deseo recibir noticias por correo
+        </label><br><br>
+
+        <button onclick="validar()">Registrarse</button>
+    </form>
+
+    <script>
+        function validar() {
+            var nombre = document.getElementById('nombre').value;
+            var telefono = document.getElementById('telefono').value;
+            var email = document.getElementById('email').value;
+            var info = document.getElementById('info').value;
+            var checkbox1 = document.getElementById('checkbox1').checked;
+            var checkbox2 = document.getElementById('checkbox2').checked;
+            
+            if (nombre.length < 6) {
+                alert("Nombre no válido.");
+            } else if (!/^[5-9]\d{9}$/.test(telefono)) {
+                alert("Número de teléfono no válido.");
+            } else if (!email.contains("@") || !email.value.endsWith('.com')) {
+                alert("E-mail no válido. ");
+            } else if (!checkbox1 || !checkbox2) {
+                alert("Debes marcar ambas casillas de verificación.");
+            } else {
+                alert("Registro exitoso.");
+                
+            }
+        
+    }
+
+    </script>
+</body>
+</html>

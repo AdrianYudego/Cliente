@@ -10,7 +10,7 @@
         Email: <input type="text" id="email"><br><br>
         Introduce tu nombre: <input type="text" id="nombre"><br><br>
         Mensaje: <textarea id="mensaje" style="width: 300px; height: 100px;"></textarea><br><br>
-        <button onclick="enviar()">Enviar</button> <button onclick="limpiarFormulario()">Clear</button>
+        <button onclick="enviar()">Enviar</button> <button onclick="limpiar()">Clear</button>
     </form>
 
     <script>
@@ -40,8 +40,8 @@
             }
         }
 
-        function limpiarFormulario() {
-            document.getElementById('formulario').reset();
+        function limpiar() {
+            document.getElementById('formulario').value="";
         }
     </script>
 </body>

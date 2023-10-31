@@ -5,9 +5,8 @@
 <body>
     <form>
         <input type="text" id="prefijo" value="+"> <button onclick="abrir()">?</button> <input type="text" id="numero">
-      
-   
     </form>
+  
     <script>
   var ventanaHija;
   
@@ -15,18 +14,20 @@
     
     ventanaHija = window.open('', '', 'width=300,height=200');
     ventanaHija.document.write (
-    "España:", '<button onclick="opener.prefijo(+34)">+34</button>',"<br>",
-    "Holanda:",'<button onclick="opener.prefijo(+3)">+3</button>',"<br>",
-    "Inglaterra:",'<button onclick="opener.prefijo(+4)">+4</button>',"<br>",
-    "Alemania:",'<button onclick="opener.prefijo(5)">+5</button>');
+    "España:", '<button onclick="prefijo(+34)">+34</button>',"<br>",
+    "Holanda:",'<button onclick="prefijo(+3)">+3</button>',"<br>",
+    "Inglaterra:",'<button onclick="prefijo(+4)">+4</button>',"<br>",
+    "Alemania:",'<button onclick="prefijo(5)">+5</button>');
 }
 
 function prefijo(prefijo){
     document.prefijo.value=prefijo;
-    ventanaHija.close(); 
+    ventanaHija.close();
+    
+
 }
 
-
+        //Mismo problema que en el 20, no se cierra la ventana hija si la mando a una funcion por lo que he investigado deberá de cerrarse tal y como lo he hecho.
     </script>
 </body>
 </html>
