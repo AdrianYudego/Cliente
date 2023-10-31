@@ -35,25 +35,44 @@
     </div>
     
     <script>
-
+        var num1="";
         var calc=document.getElementById("caja");
 
         function anadir(num){
       
         calc.value+=num;
-
+            alert(calc.value);
         }
 
         function elegirFuncion(x){
-            
-            if(x==="="){
+            var des=calc.value;
+            var arr =Array.from(des);
+            var sw=true
+           do{
+            for(var i=0;i<arr.length;i++){
+  
+               if(arr[i]!='+' || arr[i]!='-' || arr[i]!='/'  || arr[i]!='*' ) {
+                num1=num1+arr[i];
+                    
+               }else{
+                var simbolo=arr[i];
+                    sw=false;
+                
+               }
 
-                calc.value = eval(calc.value);
-
-            }else if(x==="c"){
-                calc.value=" ";
             }
+            alert(num1);
+            alert(simbolo);
+  
+           var limite=arr[i];
+        }while(sw);
+
+        for(var i=limite;i<arr.length;i++){
+            var num2=num2+arr[i];
         }
+
+    }
+   
         
     </script>
 </body>
