@@ -47,16 +47,20 @@
             var des=calc.value;
             var arr =Array.from(des);
             for(var i=0;i<arr.length;i++){
+
                 if(arr[i]=='*' || arr[i]=='/' || arr[i]=='+' || arr[i]=='*'){
                     var simbolo=arr[i];
                     var posicion=i+1;
                     break;
                 }
                 num1=num1+arr[i];
+
             }
+
             for(var i=posicion;i<arr.length;i++){
                 num2=num2+arr[i];
             }
+            
             var numEntero1 = parseInt(num1, 10);
             var numEntero2 = parseInt(num2, 10);
             
