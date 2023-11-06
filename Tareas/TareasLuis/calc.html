@@ -44,8 +44,10 @@
         }
 
         function elegirFuncion(x){
-            var des=calc.value;
-            var arr =Array.from(des);
+
+            if(x=='='){
+            
+            var arr =Array.from(calc.value);
             for(var i=0;i<arr.length;i++){
 
                 if(arr[i]=='*' || arr[i]=='/' || arr[i]=='+' || arr[i]=='*'){
@@ -60,7 +62,7 @@
             for(var i=posicion;i<arr.length;i++){
                 num2=num2+arr[i];
             }
-            
+
             var numEntero1 = parseInt(num1, 10);
             var numEntero2 = parseInt(num2, 10);
             
@@ -68,23 +70,26 @@
            
             case '*':
                 resultado=num1*num2;
-                alert(resultado);
+                calc.value=resultado;
                 break;
             case '/':
                 resultado=num1/num2;
-                alert(resultado);
+                calc.value=resultado;
                 break;
             case '+':
                 resultado=num1+num2;
-                alert(resultado);
+                calc.value=resultado;
                 break;
             case '-':
                 resultado=num1-num2;
-                alert(resultado);
+                calc.value=resultado;
                 break;
           }
-    }
-   
+    }else{
+    calc.value='';
+
+        }
+}
         
     </script>
 </body>
