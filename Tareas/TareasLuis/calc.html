@@ -50,7 +50,7 @@
             var arr =Array.from(calc.value);
             for(var i=0;i<arr.length;i++){
 
-                if(arr[i]=='*' || arr[i]=='/' || arr[i]=='+' || arr[i]=='*'){
+                if(arr[i]=='*' || arr[i]=='/' || arr[i]=='+' || arr[i]=='-'){
                     var simbolo=arr[i];
                     var posicion=i+1;
                     break;
@@ -86,7 +86,8 @@
                 break;
           }
     }else{
-    calc.value='';
+
+        calc.value='';
 
         }
 }
