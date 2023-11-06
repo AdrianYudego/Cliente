@@ -35,9 +35,9 @@
     </div>
     
     <script>
-        var num1="";
+        var num1="",num2="";
         var calc=document.getElementById("caja");
-
+        var resultado=0;
         function anadir(num){
       
         calc.value+=num;
@@ -47,28 +47,39 @@
         function elegirFuncion(x){
             var des=calc.value;
             var arr =Array.from(des);
-            var sw=true
-           do{
             for(var i=0;i<arr.length;i++){
-  
-               if(arr[i]!='+' || arr[i]!='-' || arr[i]!='/'  || arr[i]!='*' ) {
+                if(arr[i]=='*' || arr[i]=='/' || arr[i]=='+' || arr[i]=='*'){
+                    var simbolo=arr[i];
+                    var posicion=i+1;
+                    break;
+                }
                 num1=num1+arr[i];
-                    
-               }else{
-                var simbolo=arr[i];
-                    sw=false;
-                
-               }
-
             }
+            for(var i=posicion;i<arr.length;i++){
+                num2=num2+arr[i];
+            }
+            var numEntero1 = parseInt(num1, 10);
+            var numEntero2 = parseInt(num2, 10);
             
-           var limite=arr[i];
-        }while(sw);
-
-        for(var i=limite;i<arr.length;i++){
-            var num2=num2+arr[i];
-        }
-
+          switch(simbolo){
+           
+            case '*':
+                resultado=num1*num2;
+                alert(resultado);
+                break;
+            case '/':
+                resultado=num1/num2;
+                alert(resultado);
+                break;
+            case '+':
+                resultado=num1+num2;
+                alert(resultado);
+                break;
+            case '-':
+                resultado=num1-num2;
+                alert(resultado);
+                break;
+          }
     }
    
         
