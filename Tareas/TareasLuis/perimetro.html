@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perimetro</title>
+</head>
+<body>
+    Introduce la forma:<input type="text" id="forma">
+    <button onclick="elegirForma()">Enviar</button> 
+    <script>
+
+    function elegirForma(){
+    
+     var forma=document.getElementById("forma");
+     if(forma.value=="poligono"){
+            var lados=parseFloat(prompt("Introduce lel numero de lados"));
+            var reg=prompt("Es regular?");
+            if(reg='N'){ 
+               
+            }
+            
+            var l=lado();
+            alert("Resultado "+ (l*l));
+     }else if(forma.value=="rectangulo"){
+        var b=base();
+        var h=altura();
+        alert(b*h);
+     }else if(forma.value=="triangulo"){
+        var b=base();
+        var h=altura();
+        alert((b*h)/2);
+     }
+     
+    }
+
+     function base(){
+        var base=parseFloat(prompt("Introduce la base"));
+        return base;
+     }
+
+     function altura(){
+        var altura=parseFloat(prompt("Introduce la altura"));
+        return altura;
+     }
+
+     function lado(){
+        var lado=parseFloat(prompt("Introduce el lado"));
+        return lado;
+     }
+
+    </script>
+</body>
+</html>

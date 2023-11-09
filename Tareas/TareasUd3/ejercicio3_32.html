@@ -3,24 +3,22 @@
 <head>
 </head>
 <body>
-    <div id="midiv"  style="background-color: black;"   onclick="cambiarColores()">
+    <div id="midiv"  style="background-color: black;">
         <h1>Este es el div</h1>
         <p>Texto del div</p>
     </div>
     <script>
 
 
-
+cambiarColores();
 function cambiarColores(){
     var color="#";
     var red = Math.floor(Math.random() * 256); 
     var blue = Math.floor(Math.random() * 256); 
     var green = Math.floor(Math.random() * 256); 
-    w=false;
-
     color=color+red+blue+green;
     midiv.style.backgroundColor=color;
-
+    setTimeout("cambiarColores()",100);
 }
 
 
