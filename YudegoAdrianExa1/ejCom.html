@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EjCom
+
+  </title>
+</head>
+<body>
+   Cantidad: <input type="text" id="cant">
+  <form id="pageForm">
+    <label for="moneda">Origen:</label>
+    <select id="moneda">
+      <option value="Euros">Euros</option>
+      <option value="Pesetas">Pesetas</option>
+      <option value="Dolares">Dolares</option>
+      <option value="Libras">Libras</option>
+    </select>
+    
+  </form>
+  <form id="pageForm">
+    <label for="moneda2">Destino:</label>
+    <select id="moneda2">
+      <option value="Euros">Euros</option>
+      <option value="Pesetas">Pesetas</option>
+      <option value="Dolares">Dolares</option>
+      <option value="Libras">Libras</option>
+    </select>
+  </form>
+  <button onclick="calcular()">Calcular</button>
+
+  <script>
+    function calcular(){
+        var moneda = document.getElementById('moneda').value;
+        var moneda2 = document.getElementById('moneda2').value
+        var cant = document.getElementById('cant').value;
+
+        if(moneda=="Euros"){
+
+            if(moneda2=="Pesetas"){
+                alert(cant +" euros son " +166*cant+" pesetas");
+            }
+              if(moneda2=="Dolares"){
+                alert(cant +" euros son " +1.08*cant+" dolares");
+            }
+             if(moneda2=="Libras"){
+                alert(cant +" euros son " +0.86*cant+" libras");
+            }
+        }
+        
+        else if(moneda="Pesetas"){
+            if(moneda2=="Euros"){
+            alert(cant +" pesetas son " +cant/166+" euros")
+        } if(moneda2=="Dolares"){
+                alert(cant +" pesetas son " +0.2+" dolares");
+            }  if(moneda2=="Libras"){
+                alert(cant +" pesetas son " +0.15+" libras");
+            }
+   }
+   
+   else if(moneda="Dolares"){
+    if(moneda2=="Pesetas"){
+                alert(cant +" dolares son " +154,24918*cant+" pesetas");
+            }
+             if(moneda2=="Euros"){
+                alert(cant +" dolares son " +0,96*cant+" euros");
+            }
+            if(moneda2=="Libras"){
+                alert(cant +" dolares son " +0.79*cant+" libras");
+            }
+   }
+   
+   
+   
+   else if(moneda="Libras"){
+    if(moneda2=="Pesetas"){
+                alert(cant +" libras son " +193*cant+" pesetas");
+            }
+              if(moneda2=="Euros"){
+                alert(cant +" libras son " +1,16*cant+" euros");
+            }
+            if(moneda2=="Dolares"){
+                alert(cant +" dolares son " +1.25*cant+" dolares");
+            }
+   }
+}
+    
+  </script>
+</body>
+</html>
