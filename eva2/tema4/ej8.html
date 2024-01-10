@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+  
+    <p id="resultado"></p>
+
+    <script>
+        comprobar()
+        function comprobar() {
+            var num1 = parseFloat(prompt("Introduce un numero"));
+            var num2 = parseFloat(prompt("Introduce un segundo numero"));
+            var mayor=-1;
+            var resul = document.getElementById("resultado");
+            
+            if(isNaN(num1) || isNaN(num2)){
+                resul.textContent = "Alguno de los datos no es alfanumerico";
+            }else{
+                var mayor = num1 > num2 ? num1 : num2;
+                resul.textContent = "Son alfanumericos y el mayor es " + mayor;
+            }
+               
+        }
+    </script>
+</body>
+</html>

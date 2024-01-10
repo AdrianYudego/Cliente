@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <label>Primer valor:</label>
+    <input id="num1"><br>
+
+    <label>Segundo valor:</label>
+    <input id="num2"><br>
+    
+    <label>Operador:</label>
+    <input id="operador"><br>
+
+    <p id="resultado"></p>
+    
+    <button onclick="comprobar()">Comprobar resultado</button>
+    
+    <script>
+        function comprobar() {
+            var num1 = parseFloat(document.getElementById("num1").value);
+            var num2 = parseFloat(document.getElementById("num2").value);
+            var operador = document.getElementById("operador").value;
+            var resul = document.getElementById("resultado");
+
+            if (isNaN(num1) || isNaN(num2)) {
+                resul.textContent = "Alguno de los valores no es alfanumerico";
+                return;
+            }
+
+            var mostrar;
+
+            switch (operador) {
+                case '+':
+                    mostrar = num1 + num2;
+                    break;
+                case '-':
+                    mostrar = num1 - num2;
+                    break;
+                case '*':
+                    mostrar = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 === 0) {
+                        resul.textContent = "No se puede dividir por cero.";
+                        return;
+                    }
+                    mostrar = num1 / num2;
+                    break;
+                default:
+                    resul.textContent = "Operador inválido. Use +, -, *, o /";
+                    return;
+            }
+
+            resul.textContent = "El resultado es " + mostrar;
+        }
+    </script>
+</body>
+</html>
+

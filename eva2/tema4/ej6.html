@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+
+    
+
+    <p id="resultado"></p>
+
+    <script>
+        calcularSuma();
+        function calcularSuma() {
+            var num1 = parseFloat(prompt("Introduce el primer numero"));
+            var num2 = parseFloat(prompt("Introduce el segundo numero"));
+            var resul = document.getElementById("resultado");
+            
+                resul.textContent = "La suma es: " + (num1 + num2);
+        }
+    </script>
+</body>
+</html>

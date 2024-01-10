@@ -1,0 +1,25 @@
+<script>
+   
+multiplo();
+   function multiplo(){
+   
+   var num=parseFloat(prompt("Introduce un numero"));
+
+   var resul=num%3;
+
+   if(resul==0){
+    alert("Es multiplo de 3");
+   }
+   else{
+    alert("No es multiplo de 3");
+   }
+
+   var repet=(prompt("Quieres vovlver a intentarlo? s/n"));
+
+   if(repet=="s"){
+multiplo();
+   }else{
+    alert("Programa finalizado");
+   }
+   }
+</script>
