@@ -21,7 +21,7 @@
         function mostrar() {
             var miDiv = document.getElementById("miDiv");
             miDiv.innerHTML = '';
-            cont++;
+            
             for (var i = 0; i < tareas.length; i++) {
                 var checkbox = document.createElement('input');
                 checkbox.type = "checkbox";
