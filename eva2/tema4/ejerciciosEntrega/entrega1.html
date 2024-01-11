@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <h1>LISTA DE TAREAS PENDIENTES</h1>
+    <label>Agregar nueva tarea:</label> <input id="nuevaTarea"><br> <button onclick="agregar()">Agregar</button>
+
+    <br>
+    <div id="miDiv"></div>
+    <script>
+        var tareas = [];
+        
+
+        function agregar() {
+            var nueva = document.getElementById("nuevaTarea").value;
+            tareas.push({ tarea: nueva, completada: false });
+            mostrar();
+        }
+
+        function mostrar() {
+            var miDiv = document.getElementById("miDiv");
+            miDiv.innerHTML = '';
+            cont++;
+            for (var i = 0; i < tareas.length; i++) {
+                var checkbox = document.createElement('input');
+                checkbox.type = "checkbox";
+                checkbox.id = "id";
+                checkbox.checked = tareas[i].completada;
+
+                var label = document.createElement('label');
+                if (tareas[i].completada) {
+                    label.style.textDecoration = 'line-through';
+                }
+                label.appendChild(document.createTextNode(tareas[i].tarea));
+
+                var elim = document.createElement('button');
+                elim.innerHTML = "X";
+                
+                elim.onclick = function (index) {
+                    return function () {
+                        tareas.splice(index, 1);
+                        mostrar(); 
+                    }
+                }(i);
+
+                miDiv.appendChild(checkbox);
+                miDiv.appendChild(label);
+                miDiv.appendChild(elim);
+                miDiv.appendChild(document.createElement('br'));
+            }
+        }
+    </script>
+</body>
+</html>
