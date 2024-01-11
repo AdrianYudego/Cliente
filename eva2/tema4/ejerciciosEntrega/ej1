@@ -20,16 +20,15 @@
 
         function mostrar() {
             var miDiv = document.getElementById("miDiv");
-            miDiv.innerHTML = '';
+            miDiv.textContent = '';
             
             for (var i = 0; i < tareas.length; i++) {
                 var checkbox = document.createElement('input');
                 checkbox.type = "checkbox";
-                checkbox.id = "id";
                 checkbox.checked = tareas[i].completada;
 
                 var label = document.createElement('label');
-                if (tareas[i].completada) {
+                if (tareas[i].completada==true) {
                     label.style.textDecoration = 'line-through';
                 }
                 label.appendChild(document.createTextNode(tareas[i].tarea));
@@ -37,9 +36,9 @@
                 var elim = document.createElement('button');
                 elim.innerHTML = "X";
                 
-                elim.onclick = function (index) {
+                elim.onclick = function (i) {
                     return function () {
-                        tareas.splice(index, 1);
+                        tareas.splice(i, 1);
                         mostrar(); 
                     }
                 }(i);

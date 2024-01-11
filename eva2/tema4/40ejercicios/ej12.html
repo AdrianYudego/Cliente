@@ -3,15 +3,25 @@
 <head>
 </head>
 <body>
-    <p id="fechaNow"></p>
-    <p id="fechaMaya"></p>
-    <p id="diferencia"></p>
+    <p id="fechaNow"> </p>
+    <p id="fechaMaya"> </p>
+    <p id="diferencia"> </p>
     <script>
-        
-        var fecha1=document.getElementById("fechaNow");
-        var fecha2=document.getElementById("fechaMaya");
-        fecha1.textContent = Date.now();
-        fecha2.textContent= new Date(2012, 11, 21);
+        var fechaNueva = new Date();
+        var fechMaya = new Date(2012, 11, 21);
+
+        var fecha1 = document.getElementById("fechaNow");
+        var fecha2 = document.getElementById("fechaMaya");
+        var dif = document.getElementById("diferencia");
+
+        var tiempoActual = fechaNueva.getTime();
+        var tiempoMaya = fechMaya.getTime();
+
+        var diferencia = (tiempoActual - tiempoMaya) / (1000 * 60 * 60 * 24);
+        fecha1.textContent = "Fecha actual: " + fechaNueva.toLocaleDateString();
+        fecha2.textContent = "Fin mundo maya: " + fechMaya.toLocaleDateString();
+        dif.textContent = "Diferencia en días: " + diferencia;
+
     </script>
     
 </body>
