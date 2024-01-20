@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+</head>
+<body>
+    <h1>Apertura ventanas</h1>
+    
+    Introduce:<input type="text" id="direccion">
+    Altura:<input type="text" id="h">
+    Ancho:<input type="text" id="w">
+    <button onclick="abrir()">Abrir 'Ventana'</button>
+    <script>
+
+
+        function abrir() {
+              var dir=document.getElementById('direccion').value;
+            for (var i = 0; i <=3; i++) {
+                ventanaHija = window.open(dir, width=w,heigth=h);
+            }
+        }
+    </script>
+</body>
+</html>

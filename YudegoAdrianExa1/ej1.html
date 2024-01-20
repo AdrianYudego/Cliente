@@ -1,0 +1,36 @@
+<html lang="es">
+<head>
+<title> Ej1  </title>
+
+</head>
+<body>
+    <h1>Validación de triángulo</h1>
+    <form>
+        Lado A:
+        <input type="text" id="a"><br>
+        Lado B:
+        <input type="text"id="b"><br>
+        Lado C:
+        <input type="text" id="c"><br>
+        </form>
+        <button onclick="validar()">Validar triángulo</button>   
+        
+</body>
+<script>
+
+
+    function validar(){
+    
+    var a=document.getElementById("a").value;
+    var b=document.getElementById("b").value;
+    var c=document.getElementById("c").value;
+    
+    if(a+b>c && b+c>a && a+c>b){
+        
+        document.write("Si es válido");
+    }else{
+        document.write("No es válido");
+    }
+    }
+    </script>
+</html>

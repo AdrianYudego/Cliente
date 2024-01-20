@@ -1,0 +1,31 @@
+<html lang="es">
+<head>
+<title> Ej5</title>
+
+</head>
+
+<script>
+    function tabla(){
+     var str=" ";
+     var num=parseFloat(prompt("Introduce numero "));
+       for(var i=1;i<=10;i++){
+        str+= num + "*"+i + "="+ num*i+"\n";
+        alert(str);
+
+        
+       }
+       var opt=confirm("¿Quieres ver otra tabla de multiplicar?");
+       
+       if(opt){
+        tabla();
+       }else{
+        alert("Adios");
+       }
+    }
+    tabla();
+    </script>
+    <body>
+
+            
+    </body>
+</html>

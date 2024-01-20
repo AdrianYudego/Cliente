@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Texto en movimiento</title>
+</head>
+<body>
+<input type="text" id="color">
+<button onclick="cambiarColor()">Enviar</button>
+    
+<script>
+    function cambiarColor(){
+        event.preventDefault();
+        document.body.style.backgroundColor=document.getElementById("color").value;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<script>
+
+var num1=parseFloat(prompt("Introduce un numero "));
+var num2=parseFloat(prompt("Introduce otro numero"));
+var num3=parseFloat(prompt("Introduce otro numero"));
+
+var numeros=[num1,num2,num3];
+var mayor=-1;
+for(var i=0;i<numeros.length;i++){
+    
+    if(mayor<numeros[i]){
+        mayor=numeros[i];
+    }
+}
+alert("El numero mayor es " + mayor);
+</script>

@@ -1,0 +1,37 @@
+<html lang="es">
+<head>
+<title> Ej2  </title>
+
+</head>
+
+<script>
+     
+    function verificar(){
+    var contra="1234";
+    var cont= document.getElementById("miDiv").innerHTML;
+    event.preventDefault();
+    var a=document.getElementById("a").value;
+   if(contra==a){
+    alert("Se ha abierto la caja fuerte satisfactoriamente");
+   }else if(cont==1){
+    alert("Se ha quedado sin intentos, caja bloqueada");
+    cont= document.getElementById("miDiv").innerHTML-1;
+    document.getElementById("miDiv").innerHTML= cont;
+   } else{
+   
+    alert("Error, intentalo de nuevo");
+    cont= document.getElementById("miDiv").innerHTML-1;
+    document.getElementById("miDiv").innerHTML= cont;
+   }
+    }
+    </script>
+    <body>
+        <h1>Control de acceso caja fuerte</h1>
+        <form>
+            Introduce la combinación(4 cifras):
+            <input type="text" id="a">
+        
+            <button onclick="verificar()">Verificar</button>   
+            <p>Numero de intentos restantes: </p> <p id="miDiv">4 </div>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+  
+    <p id="resultado"></p>
+
+    <script>
+        comprobar()
+        function comprobar() {
+            var num1 = parseFloat(prompt("Introduce un numero"));
+            
+            var resul = document.getElementById("resultado");
+            
+            if(isNaN(num1)){
+                resul.textContent = "No es alfanumerico";
+            }else{
+                resul.textContent = "Es alfanumerico";
+            }
+               
+        }
+    </script>
+</body>
+</html>

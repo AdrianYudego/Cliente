@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Factorial</th>
+            </tr>
+        </thead>
+        <tbody>
+            <script>
+                for (var i = 1; i <= 25; i++) {
+                    var resul = 1;
+                    for (var j = 1; j <= i; j++) {
+                        resul *= j;
+                    }
+                    document.write('<tr><td>' + i + '</td><td>' + resul + '</td></tr>');
+                }
+            </script>
+        </tbody>
+    </table>
+</body>
+</html>

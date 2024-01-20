@@ -13,7 +13,6 @@
         <input type="button" onclick="abrir()" value="Abrir">
     </form>
     <script>
-  
 var matriz = [
     ["Título de la página", "Descripción de la página"],
     ["Vacia"," "],
@@ -21,24 +20,17 @@ var matriz = [
     ["Gmail","http://www.gmail.es"]
 ];
 
-
 for (var i = 0; i < matriz.length; i++) {
     document.write("<br>");
     for (var j = 0; j < matriz[i].length; j++) {
        document.write( matriz[i][j] + " ");
-      
     }
 }
 
 function abrir() {
             var url = document.getElementById("pagina").value;
-           
-                
                 window.open(url, "");
-            
         }
-
-
     </script>
 </body>
 </html>

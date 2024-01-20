@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Texto en movimiento</title>
+</head>
+<body>
+    <form>
+        <select id="color">
+            <option value="blue">Azul</option>
+            <option value="red">Rojo</option>
+            <option value="green">Verde</option>
+            <option value="black">Negro</option>
+        </select>
+        <button onclick="cambiarColor()">Selecciona</button>
+    </form>
+    
+<script>
+    function cambiarColor(){
+        event.preventDefault();
+        document.body.style.backgroundColor=document.getElementById("color").value;
+    }
+
+
+
+</script>
+
+</body>
+</html>

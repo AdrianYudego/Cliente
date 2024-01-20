@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ej6</title>
+</head>
+<body>
+
+  <form id="pageForm">
+    <label for="figura">Selecciona una figura:</label>
+    <select id="figura">
+      <option value="Triangulo">Triangulo</option>
+      <option value="Rectangulo">Rectangulo</option>
+      <option value="Poligono">Poligono</option>
+    </select>
+    <button onclick="calcular()">Calcular</button>   
+  </form>
+
+  <script>
+    function calcular(){
+        var figura = document.getElementById('figura').value;
+    if(figura=="Triangulo"){
+        alert("El perímetro es: "+21);
+
+    }else if(figura=="Rectangulo"){
+        alert("El perímetro es: "+20);
+    }else{
+        var lado=parseFloat(prompt("Introduce numero de lados del poligono "));
+        alert("El perimetro es "+lado*4);
+    }
+   }
+    
+  </script>
+</body>
+</html>

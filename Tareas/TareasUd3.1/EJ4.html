@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Texto en movimiento</title>
+</head>
+<body>
+    <input type="button" value="ejecutar" onclick="funcionar()"/>
+<script>
+    
+var texto="Este texto se mueve todo el rato no para";
+
+function funcionar(){
+
+document.title=texto;
+var texto1=texto.substring(1,texto.length);
+var caracter = texto.charAt(0);
+texto=texto1+caracter;
+setTimeout("funcionar()",150);
+
+}
+
+
+</script>
+</body>
+</html>
