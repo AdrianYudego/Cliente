@@ -6,11 +6,11 @@
 <body>
   <h1>Cuestionario de JavaScript</h1>
   <div id="cuestionario">
-    <!-- Las preguntas y respuestas se generarán aquí -->
+   
   </div>
   <button id="comprobar">Comprobar Respuestas</button>
   <div id="resultado">
-    <!-- El resultado se mostrará aquí -->
+    
   </div>
 
   <script>
@@ -95,36 +95,32 @@
     }
 
     comprobarButton.addEventListener("click", function() {
-      var respuestasSeleccionadas = [];
-      var correctas = 0;
+  var respuestasSeleccionadas = [];
+  var correctasCont = 0;
 
-      for (var i = 0; i < 10; i++) {
-        var input = document.getElementsByName("pregunta" + i);
-        var respuestaSeleccionada = null;
+  for (var i = 0; i < 10; i++) {
+    var inputs = document.getElementsByName("pregunta" + i); 
+    var respuestaSeleccionada = null;
 
-        for (var j = 0; j < radios.length; j++) {
-          if (input[j].checked) {
-            respuestaSeleccionada = parseInt(input[j].value);
-            break;
-          }
-        }
-
-        if (respuestaSeleccionada != null) {
-          respuestasSeleccionadas.push(respuestaSeleccionada);
-          if (respuestaSeleccionada == correctas[i]) {
-            correctas++;
-          }
-        } else {
-          respuestasSeleccionadas.push(-1); 
-        }
+    for (var j = 0; j < inputs.length; j++) { 
+      if (inputs[j].checked) {
+        respuestaSeleccionada = parseInt(inputs[j].value);
+        break;
       }
+    }
 
-      var resultadoHTML = "Has acertado: " + correctas + " de 10";
-
-    
-
-      resultado.innerHTML = resultadoHTML;
-    });
+    if (respuestaSeleccionada != null) {
+      respuestasSeleccionadas.push(respuestaSeleccionada);
+      if (respuestaSeleccionada == correctas[i]) { 
+        correctasCont++; 
+      }
+    } else {
+      respuestasSeleccionadas.push(-1); 
+    }
+  }
+  var resultadoHTML = "Has acertado: " + correctasCont + " de 10"; 
+  resultado.innerHTML = resultadoHTML;
+});
 
     mostrarPreguntasAleatorias();
   </script>

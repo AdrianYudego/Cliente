@@ -10,12 +10,12 @@
     <div id="miDiv"></div>
     <script>
         var tareas = [];
-        
 
         function agregar() {
             var nueva = document.getElementById("nuevaTarea").value;
             tareas.push({ tarea: nueva, completada: false });
             mostrar();
+            document.getElementById("nuevaTarea").value = ''; 
         }
 
         function mostrar() {
@@ -27,8 +27,15 @@
                 checkbox.type = "checkbox";
                 checkbox.checked = tareas[i].completada;
 
+                checkbox.addEventListener('change', function (index) {
+                    return function () {
+                        tareas[index].completada = this.checked;
+                        mostrar();
+                    };
+                }(i));
+
                 var label = document.createElement('label');
-                if (tareas[i].completada==true) {
+                if (tareas[i].completada) {
                     label.style.textDecoration = 'line-through';
                 }
                 label.appendChild(document.createTextNode(tareas[i].tarea));
@@ -36,11 +43,11 @@
                 var elim = document.createElement('button');
                 elim.innerHTML = "X";
                 
-                elim.onclick = function (i) {
+                elim.onclick = function (index) {
                     return function () {
-                        tareas.splice(i, 1);
-                        mostrar(); 
-                    }
+                        tareas.splice(index, 1);
+                        mostrar();
+                    };
                 }(i);
 
                 miDiv.appendChild(checkbox);
