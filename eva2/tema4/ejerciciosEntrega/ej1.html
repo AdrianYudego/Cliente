@@ -9,39 +9,50 @@
     <br>
     <div id="miDiv"></div>
     <script>
+
         var tareas = [];
-        
 
         function agregar() {
             var nueva = document.getElementById("nuevaTarea").value;
             tareas.push({ tarea: nueva, completada: false });
             mostrar();
+            document.getElementById("nuevaTarea").value = ''; 
         }
+
 
         function mostrar() {
             var miDiv = document.getElementById("miDiv");
             miDiv.textContent = '';
-            
+
+
             for (var i = 0; i < tareas.length; i++) {
                 var checkbox = document.createElement('input');
                 checkbox.type = "checkbox";
-                checkbox.checked = tareas[i].completada;
+                checkbox.checked = tareas[i].completada; 
+                checkbox.addEventListener('change',function (i) {
+                    return function () {
+                        tareas[i].completada = this.checked; 
+                        mostrar(); 
+                    }
+                }(i));
+
 
                 var label = document.createElement('label');
-                if (tareas[i].completada==true) {
+                if (tareas[i].completada == true) {
                     label.style.textDecoration = 'line-through';
                 }
                 label.appendChild(document.createTextNode(tareas[i].tarea));
 
+
                 var elim = document.createElement('button');
                 elim.innerHTML = "X";
-                
                 elim.onclick = function (i) {
                     return function () {
                         tareas.splice(i, 1);
                         mostrar(); 
                     }
                 }(i);
+
 
                 miDiv.appendChild(checkbox);
                 miDiv.appendChild(label);

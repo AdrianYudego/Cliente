@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cuestionario JavaScript</title>
+</head>
+<body>
+  <h1>Cuestionario de JavaScript</h1>
+  <div id="cuestionario">
+    <!-- Las preguntas y respuestas se generarán aquí -->
+  </div>
+  <button id="comprobar">Comprobar Respuestas</button>
+  <div id="resultado">
+    <!-- El resultado se mostrará aquí -->
+  </div>
+
+  <script>
+    var preguntas = [
+      "¿Cuál es la forma correcta de declarar una variable en JavaScript?",
+      "¿Qué tipo de lenguaje es JavaScript?",
+      "¿Cuál es el operador de igualdad estricta en JavaScript?",
+      "¿Qué función se utiliza para mostrar un mensaje en la consola de JavaScript?",
+      "¿Cuál de las siguientes no es una estructura de control en JavaScript?",
+      "¿Cuál es la forma correcta de comentar una línea en JavaScript?",
+      "¿Cómo se llama el objeto global en JavaScript que contiene funciones para manipular el DOM?",
+      "¿Cuál es la función utilizada para agregar un elemento al final de un array en JavaScript?",
+      "¿Cuál es el operador de concatenación de cadenas en JavaScript?",
+      "¿Cuál es la palabra clave utilizada para declarar una función en JavaScript?",
+      "¿Cuál es el resultado de 5 + '5' en JavaScript?",
+      "¿Cuál es la forma correcta de declarar una constante en JavaScript?",
+      "¿Cuál es la función utilizada para convertir una cadena en un número entero en JavaScript?",
+      "¿Cuál es la función utilizada para redireccionar a otra página web en JavaScript?",
+      "¿Cuál de las siguientes no es una variable global predefinida en JavaScript?"
+    ];
+
+    var respuestas = [
+      ["a) var myVariable;", "b) variable = myVariable;", "c) let myVariable;", "d) const myVariable;"],
+      ["a) Lenguaje de programación de alto nivel.", "b) Lenguaje de marcado.", "c) Lenguaje de programación de bajo nivel.", "d) Lenguaje de programación de script."],
+      ["a) ==", "b) ===", "c) =", "d) !="],
+      ["a) print()", "b) display()", "c) alert()", "d) console.log()"],
+      ["a) if-else", "b) for-in", "c) switch-case", "d) loop-while"],
+      ["a) // Esto es un comentario", "b) /* Esto es un comentario */", "c) # Esto es un comentario", "d) -- Esto es un comentario"],
+      ["a) window", "b) document", "c) navigator", "d) console"],
+      ["a) append()", "b) push()", "c) add()", "d) insert()"],
+      ["a) +", "b) &", "c) /", "d) -"],
+      ["a) define", "b) function", "c) declare", "d) create"],
+      ["a) 10", "b) '55'", "c) 55", "d) Error"],
+      ["a) var myConstant;", "b) let myConstant;", "c) const myConstant;", "d) constant myConstant;"],
+      ["a) parseFloat()", "b) toInt()", "c) parseInt()", "d) convertToInteger()"],
+      ["a) redirect()", "b) goTo()", "c) location.href()", "d) window.location.href()"],
+      ["a) window", "b) document", "c) global", "d) navigator"]
+    ];
+
+    var correctas = [0, 0, 1, 3, 3, 1, 0, 1, 0, 1, 1, 2, 2, 3, 2];
+
+    var cuestionario = document.getElementById("cuestionario");
+    var comprobarButton = document.getElementById("comprobar");
+    var resultado = document.getElementById("resultado");
+
+
+    function obtenerNumeroAleatorio(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+
+    function mostrarPreguntasAleatorias() {
+      var preguntasMostradas = [];
+      for (var i = 0; i < 10; i++) {
+        var numeroAleatorio;
+        do {
+          numeroAleatorio = obtenerNumeroAleatorio(preguntas.length);
+        } while (preguntasMostradas.includes(numeroAleatorio));
+        preguntasMostradas.push(numeroAleatorio);
+
+        var preguntaDiv = document.createElement("div");
+        preguntaDiv.innerHTML = "<p>" + preguntas[numeroAleatorio] + "</p>";
+
+        for (var j = 0; j < respuestas[numeroAleatorio].length; j++) {
+          var input = document.createElement("input");
+          input.type = "radio";
+          input.name = "pregunta" + i;
+          input.value = j;
+
+          var respuestaLabel = document.createElement("label");
+          respuestaLabel.innerHTML = respuestas[numeroAleatorio][j];
+
+          preguntaDiv.appendChild(input);
+          preguntaDiv.appendChild(respuestaLabel);
+          preguntaDiv.appendChild(document.createElement("br"));
+        }
+
+        cuestionario.appendChild(preguntaDiv);
+      }
+    }
+
+    comprobarButton.addEventListener("click", function() {
+      var respuestasSeleccionadas = [];
+      var correctas = 0;
+
+      for (var i = 0; i < 10; i++) {
+        var input = document.getElementsByName("pregunta" + i);
+        var respuestaSeleccionada = null;
+
+        for (var j = 0; j < radios.length; j++) {
+          if (input[j].checked) {
+            respuestaSeleccionada = parseInt(input[j].value);
+            break;
+          }
+        }
+
+        if (respuestaSeleccionada != null) {
+          respuestasSeleccionadas.push(respuestaSeleccionada);
+          if (respuestaSeleccionada == correctas[i]) {
+            correctas++;
+          }
+        } else {
+          respuestasSeleccionadas.push(-1); 
+        }
+      }
+
+      var resultadoHTML = "Has acertado: " + correctas + " de 10";
+
+
+      resultado.innerHTML = resultadoHTML;
+    });
+
+    mostrarPreguntasAleatorias();
+  </script>
+</body>
+</html>
