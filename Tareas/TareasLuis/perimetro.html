@@ -4,48 +4,58 @@
     <title>Perimetro</title>
 </head>
 <body>
-    Introduce la forma:<input type="text" id="forma">
-    <button onclick="elegirForma()">Enviar</button> 
+    Introduce la forma:
+    <input type="text" id="forma">
+    <input type="hidden">
+    <button onclick="calcularPerimetro()">Calcular Perimetro</button> 
     <script>
 
-    function elegirForma(){
-    
-     var forma=document.getElementById("forma");
-     if(forma.value=="poligono"){
-            var lados=parseFloat(prompt("Introduce lel numero de lados"));
-            var reg=prompt("Es regular?");
-            if(reg='N'){ 
-               
+    function calcularPerimetro() {
+        var forma = document.getElementById("forma").value.toLowerCase();
+
+        if (forma === "poligono") {
+            var lados = parseFloat(prompt("Introduce el número de lados"));
+            var r = prompt("¿Es regular? (S/N)");
+
+            if (r == 'n') {
+               var perimetro = 0;
+                for (var i = 0; i < lados; i++) {
+                    perimetro += lado();
+                }
+                alert("Perimetro: " + perimetro);
+
             }
-            
-            var l=lado();
-            alert("Resultado "+ (l*l));
-     }else if(forma.value=="rectangulo"){
-        var b=base();
-        var h=altura();
-        alert(b*h);
-     }else if(forma.value=="triangulo"){
-        var b=base();
-        var h=altura();
-        alert((b*h)/2);
-     }
-     
+
+            var l = lado();
+            alert("Perimetro: " + lados * l);
+        } else if (forma === "rectangulo") {
+            var b = base();
+            var h = altura();
+            alert("Perimetro: " + 2 * (b + h));
+        } else if (forma === "triangulo") {
+            var l1 = lado();
+            var l2 = lado();
+            var l3 = lado();
+            alert("Perimetro: " + (l1 + l2 + l3));
+        } else {
+            alert("Forma no reconocida");
+        }
     }
 
-     function base(){
-        var base=parseFloat(prompt("Introduce la base"));
+    function base() {
+        var base = parseFloat(prompt("Introduce la base"));
         return base;
-     }
+    }
 
-     function altura(){
-        var altura=parseFloat(prompt("Introduce la altura"));
+    function altura() {
+        var altura = parseFloat(prompt("Introduce la altura"));
         return altura;
-     }
+    }
 
-     function lado(){
-        var lado=parseFloat(prompt("Introduce el lado"));
+    function lado() {
+        var lado = parseFloat(prompt("Introduce el lado"));
         return lado;
-     }
+    }
 
     </script>
 </body>

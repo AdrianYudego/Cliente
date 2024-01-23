@@ -57,9 +57,11 @@
     var resultado = document.getElementById("resultado");
 
 
+
     function obtenerNumeroAleatorio(max) {
       return Math.floor(Math.random() * max);
     }
+
 
 
     function mostrarPreguntasAleatorias() {
@@ -119,6 +121,7 @@
 
       var resultadoHTML = "Has acertado: " + correctas + " de 10";
 
+    
 
       resultado.innerHTML = resultadoHTML;
     });
