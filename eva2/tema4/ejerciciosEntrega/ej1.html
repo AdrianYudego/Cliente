@@ -37,8 +37,19 @@
                 }(i));
 
 
+                checkbox.addEventListener('change', function (index) {
+                    return function () {
+                        tareas[index].completada = this.checked;
+                        mostrar();
+                    };
+                }(i));
+
                 var label = document.createElement('label');
+<<<<<<< HEAD
                 if (tareas[i].completada == true) {
+=======
+                if (tareas[i].completada) {
+>>>>>>> 99011d0d534faa059111453f1df3a99464d5ea06
                     label.style.textDecoration = 'line-through';
                 }
                 label.appendChild(document.createTextNode(tareas[i].tarea));
@@ -46,11 +57,16 @@
 
                 var elim = document.createElement('button');
                 elim.innerHTML = "X";
+<<<<<<< HEAD
                 elim.onclick = function (i) {
+=======
+                
+                elim.onclick = function (index) {
+>>>>>>> 99011d0d534faa059111453f1df3a99464d5ea06
                     return function () {
-                        tareas.splice(i, 1);
-                        mostrar(); 
-                    }
+                        tareas.splice(index, 1);
+                        mostrar();
+                    };
                 }(i);
 
 

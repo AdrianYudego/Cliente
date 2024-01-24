@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #F5F5F5;
+            font-family: Arial, sans-serif;
+            text-align: center; 
+        }
+
+        h1 {
+            color: #FF5733;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        #avisos img {
+            margin-top: 20px;
+        }
+
+        #timer {
+            font-size: 24px;
+            color: #FF5733;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adivina la siguiente palabra, animales:</h1>
+    <input type="text" id="letra">
+    <button onclick="jugar()">Jugar</button>
+    <p id="resultado"></p>
+    <p id="errores"></p>
+    <p id="avisos"></p>
+    <p id="tempo">Tiempo restante: 60 segundos</p> 
+
+    <script>
+
+        var temp;
+        var erroneas=[];
+        var palabra="";
+        var inicio = [];
+        var intentos=0;
+        var imagenes=["1.png","2.png","3.png","4.png","5.png"]
+
+        aleatorio();
+        iniciarTemporizador();
+
+        function aleatorio(){
+
+            var animales=["erro","zorro","hiena","tigre"];
+
+            var aleatorio=Math.floor(Math.random()*animales.length);
+            palabra=animales[aleatorio]
+            var resul = document.getElementById("resultado");
+
+            for(var i = 0; i < palabra.length; i++) {
+                inicio [i]= "_";
+            }
+            resul.textContent=inicio;
+
+        }
+
+        function jugar(){
+            
+            
+
+            var resul = document.getElementById("resultado");
+            var error = document.getElementById("errores");
+            var avisos=document.getElementById("avisos");
+            var letra=document.getElementById("letra").value;
+            var sw=false;
+            if(letra.length<inicio.length){
+                if(intentos<5) {
+
+                    for(var i=0;i<palabra.length;i++){
+                        if(letra==palabra[i]){
+                            sw=true;
+                            inicio[i]=letra;
+
+                        }
+                    }
+
+                    if(sw==false){
+                        erroneas[intentos]=letra;
+
+                        var winImageSrc = imagenes[intentos];
+                        avisos.innerHTML = `<img width="300px" height="300px" src="${winImageSrc}" alt="${altText}">`;
+                        intentos++;
+                    }
+
+                    resul.textContent=inicio;
+                    error.textContent=erroneas;
+
+                }else{
+
+                    avisos.textContent="Has llegado al número máximo de fallos";
+
+                }
+
+            }else{
+
+                var winImageSrc = 'win.png';
+                var altText = 'Enhorabuena, has acertado.';
+
+                if (letra == palabra) {
+                    avisos.innerHTML = `<img width="300px" height="300px" src="${winImageSrc}" alt="${altText}">`;
+                } else {
+                    erroneas[intentos]=letra;
+
+                        var winImageSrc = imagenes[intentos];
+                        avisos.innerHTML = `<img width="300px" height="300px" src="${winImageSrc}" alt="${altText}">`;
+                        intentos++;
+                        resul.textContent=inicio;
+                    error.textContent=erroneas;
+                }
+            }
+        }
+
+        
+        function iniciarTemporizador() {
+            var tiempoRestante = 60; 
+
+            temp = setInterval(function() {
+                tiempoRestante--;
+                document.getElementById("tempo").textContent = "Tiempo restante: " + tiempoRestante + " segundos";
+
+                if (tiempoRestante <= 0) {
+                    clearInterval(temp); 
+                    document.getElementById("tempo").textContent = "Tiempo agotado";
+                    
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
