@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evitar vocales en cuadro de texto</title>
+</head>
+<body>
+    <input type="text" id="miInput">
+    
+    <script>
+        
+        var inputElement = document.getElementById('miInput');
+        
+      
+        inputElement.addEventListener('input', function(event) {
+           
+            var inputValue = event.target.value;
+            
+            
+            var newValue = inputValue.replace(/[aeiouAEIOUáéíóúÁÉÍÓÚ]/g, '');
+            
+            
+            event.target.value = newValue;
+        });
+    </script>
+</body>
+</html>
