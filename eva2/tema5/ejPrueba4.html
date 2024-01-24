@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+</head>
+<body>
+    
+<div id="boton" style="background-color: blue; height: 200px; width:200px;">hola</div>
+<p id="p"></p>
+    <script>
+var cont=0;
+
+
+        function mueveBoton() {
+            var p=document.getElementById('p');
+            cont++;
+            var evento = window.event;
+            var boton=document.getElementById('boton');
+           if(cont<10 ){
+                
+            var nuevaCoordenadaX = evento.clientX + 20;
+            var nuevaCoordenadaY = evento.clientY + 20; 
+
+           }else{
+                    boton.style.backgroundColor="red";
+                    p.innerHTML="Has ganado";
+                }
+           
+            var boton = document.getElementById("boton");
+
+            boton.style.position = "absolute";
+            boton.style.left = nuevaCoordenadaX + 'px';
+            boton.style.top = nuevaCoordenadaY + 'px';
+        }
+
+        document.onmouseover=mueveBoton;
+        
+    </script>
+</body>
+</html>

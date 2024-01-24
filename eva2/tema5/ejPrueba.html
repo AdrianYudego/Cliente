@@ -14,13 +14,14 @@
     <script>
 var cont=0;
        window.onload = function() { 
+
         document.onkeypress = muestraInformacion; 
         
      }
 
-        function muestraInformacion(elEvento) { 
+        function muestraInformacion() { 
        cont++;
-            var evento = window.event || elEvento;
+            var evento = window.event;
 
         if(evento.shiftKey){
 

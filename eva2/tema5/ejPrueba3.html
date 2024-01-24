@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Evitar vocales en cuadro de texto</title>
+</head>
+<body>
+    <p id="p"></p>
+
+    <script>
+
+        function muestraInformacion() {
+             var evento = window.event; 
+             var coordenadaX = evento.clientX; 
+             var coordenadaY = evento.clientY; 
+             p.innerHTML="Ratón en la posición: " + coordenadaX + ", " + coordenadaY;
+             } 
+            
+            document.onmousemove = muestraInformacion;
+            
+            </script>
+</body>
+</html>
+
