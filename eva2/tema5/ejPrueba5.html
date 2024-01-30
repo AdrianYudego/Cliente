@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cambiar Imagen</title>
+</head>
+<body>
+    <button id="cambiarImagenBtn">Cambiar Imagen</button>
+    <img id="imagenCambiante" width="300px" height="300px" src="1.jpg" alt="Imagen 1">
+
+    <script>
+        var imagenes = ["1.jpg", "2.jpg"];
+        var imagenIndex = 0; 
+
+        
+        var cambiarImagenBtn = document.getElementById("cambiarImagenBtn");
+        var imagenCambiante = document.getElementById("imagenCambiante");
+
+        cambiarImagenBtn.addEventListener("click", function () {
+           
+            imagenIndex = (imagenIndex + 1) % imagenes.length;
+            var nuevaImagenSrc = imagenes[imagenIndex];
+            imagenCambiante.src = nuevaImagenSrc;
+        });
+    </script>
+</body>
+</html>
+
