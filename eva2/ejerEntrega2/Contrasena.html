@@ -51,6 +51,11 @@
       var hasSymbol = /[-/:;()&.?!%*]/.test(passwordInput.value);
       var isValidLength = passwordInput.value.length >= 8 && passwordInput.value.length <= 20;
 
+
+      lengthMessage.classList.toggle('invalid', !isValidLength);
+      uppercaseMessage.classList.toggle('invalid', !hasUpperCase);
+      numberMessage.classList.toggle('invalid', !hasNumber);
+      symbolMessage.classList.toggle('invalid', !hasSymbol);
       lengthMessage.classList.toggle('valid', isValidLength);
       uppercaseMessage.classList.toggle('valid', hasUpperCase);
       numberMessage.classList.toggle('valid', hasNumber);
