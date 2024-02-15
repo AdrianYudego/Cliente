@@ -9,6 +9,7 @@
     <br>
     <div id="miDiv"></div>
     <script>
+
         var tareas = [];
 
         function agregar() {
@@ -18,14 +19,23 @@
             document.getElementById("nuevaTarea").value = ''; 
         }
 
+
         function mostrar() {
             var miDiv = document.getElementById("miDiv");
             miDiv.textContent = '';
-            
+
+
             for (var i = 0; i < tareas.length; i++) {
                 var checkbox = document.createElement('input');
                 checkbox.type = "checkbox";
-                checkbox.checked = tareas[i].completada;
+                checkbox.checked = tareas[i].completada; 
+                checkbox.addEventListener('change',function (i) {
+                    return function () {
+                        tareas[i].completada = this.checked; 
+                        mostrar(); 
+                    }
+                }(i));
+
 
                 checkbox.addEventListener('change', function (index) {
                     return function () {
@@ -35,20 +45,30 @@
                 }(i));
 
                 var label = document.createElement('label');
+<<<<<<< HEAD
+                if (tareas[i].completada == true) {
+=======
                 if (tareas[i].completada) {
+>>>>>>> 99011d0d534faa059111453f1df3a99464d5ea06
                     label.style.textDecoration = 'line-through';
                 }
                 label.appendChild(document.createTextNode(tareas[i].tarea));
 
+
                 var elim = document.createElement('button');
                 elim.innerHTML = "X";
+<<<<<<< HEAD
+                elim.onclick = function (i) {
+=======
                 
                 elim.onclick = function (index) {
+>>>>>>> 99011d0d534faa059111453f1df3a99464d5ea06
                     return function () {
                         tareas.splice(index, 1);
                         mostrar();
                     };
                 }(i);
+
 
                 miDiv.appendChild(checkbox);
                 miDiv.appendChild(label);

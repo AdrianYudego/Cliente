@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cambiar Imagen</title>
+    <style>
+        #imagen1 {
+            margin: auto;
+            width: 500px;
+            height: 500px;
+            display: block;
+        }
+        #div1 {
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+        .imagenpeq {
+            margin: 5px;
+            width: 200px;
+            height: 200px;
+        }
+        .btn {
+            margin: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="imagen1">
+        <img src="1.jpg" style="height: 100%; width: 100%;" onclick="cambiarImagen(this)">
+    </div>
+
+    <div id="div1">
+        <div class="btn izq">
+            <button onclick="izq()">izq</button>
+        </div>
+        <div class="imagenpeq">
+            <img src="2.jpg" style="height: 100%; width: 100%;" id="imagen2" onclick="cambiarImagen(this)">
+        </div>
+        <div class="imagenpeq">
+            <img src="3.jpg" style="height: 100%; width: 100%;" id="imagen3" onclick="cambiarImagen(this)" >
+        </div>
+        <div class="imagenpeq">
+            <img src="4.jpg" style="height: 100%; width: 100%;" id="imagen4" onclick="cambiarImagen(this)">
+        </div>
+        <div class="imagenpeq">
+            <img src="5.jpeg" style="height: 100%; width: 100%;" id="imagen5" onclick="cambiarImagen(this)">
+        </div>
+        <div class="btn der">
+            <button onclick="der()">der</button>
+        </div>
+    </div>
+    <script>
+        function cambiarImagen(imagen) {
+            var img1 = document.getElementById('imagen1').getElementsByTagName('img')[0];
+            var SrcAnterior = img1.src;
+            img1.src = imagen.src;
+            imagen.src = SrcAnterior;
+        }
+        function izq() {
+    var imgs = document.getElementsByClassName('imagenpeq');
+    var mainImg = document.getElementById('imagen1').getElementsByTagName('img')[0];
+    var firstImgSrc = mainImg.src;
+
+
+    mainImg.src = imgs[0].getElementsByTagName('img')[0].src;
+
+    
+    for (var i = 0; i < imgs.length - 1; i++) {
+        imgs[i].getElementsByTagName('img')[0].src = imgs[i + 1].getElementsByTagName('img')[0].src;
+    }
+
+    imgs[imgs.length - 1].getElementsByTagName('img')[0].src = firstImgSrc;
+}
+
+function der() {
+    var imgs = document.getElementsByClassName('imagenpeq');
+    var mainImg = document.getElementById('imagen1').getElementsByTagName('img')[0];
+    var lastImgSrc = imgs[imgs.length - 1].getElementsByTagName('img')[0].src;
+
+  
+    for (var i = imgs.length - 1; i > 0; i--) {
+        imgs[i].getElementsByTagName('img')[0].src = imgs[i - 1].getElementsByTagName('img')[0].src;
+    }
+
+
+    imgs[0].getElementsByTagName('img')[0].src = mainImg.src;
+
+    
+    mainImg.src = lastImgSrc;
+}
+
+
+    </script>
+</body>
+</html>

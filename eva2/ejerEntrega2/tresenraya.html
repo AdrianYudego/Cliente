@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tres en Raya</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            
+        }
+
+        #tablero {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+            margin: 20px auto;
+        }
+
+        .casilla {
+            width: 100px;
+            height: 100px;
+            font-size: 24px;
+            cursor: pointer;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #mensaje {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tres en Raya</h1>
+
+    <div id="tablero"></div>
+    <div id="mensaje">Turno del jugador X</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tablero = document.getElementById('tablero');
+            const mensaje = document.getElementById('mensaje');
+            let turno = 'X';
+            let ganador = null;
+            let contraMaquina = false;
+
+            
+            for (let i = 0; i < 9; i++) {
+                const casilla = document.createElement('div');
+                casilla.classList.add('casilla');
+                casilla.dataset.index = i;
+                casilla.addEventListener('click', manejarClic);
+                tablero.appendChild(casilla);
+            }
+
+            function manejarClic(event) {
+                if (ganador) return; 
+
+                const casilla = event.target;
+                const index = casilla.dataset.index;
+
+                if (casilla.textContent === '') {
+                    casilla.textContent = turno;
+                    verificarGanador();
+                    cambiarTurno();
+                    verificarEmpate();
+
+                    if (contraMaquina && turno === 'O' && !ganador) {
+                        jugarMaquina();
+                    }
+                }
+            }
+
+            function cambiarTurno() {
+                turno = turno === 'X' ? 'O' : 'X';
+                mensaje.textContent = `Turno del jugador ${turno}`;
+            }
+
+            function verificarGanador() {
+                const lineasGanadoras = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                    [0, 4, 8], [2, 4, 6]
+                ];
+
+                for (const linea of lineasGanadoras) {
+                    const [a, b, c] = linea;
+                    const casillas = tablero.children;
+
+                    if (casillas[a].textContent && casillas[a].textContent === casillas[b].textContent && casillas[a].textContent === casillas[c].textContent) {
+                        ganador = turno;
+                        mensaje.textContent = `¡Jugador ${ganador} ha ganado!`;
+                        resaltarGanador(linea);
+                        return;
+                    }
+                }
+            }
+
+            function resaltarGanador(linea) {
+                for (const index of linea) {
+                    tablero.children[index].style.color = 'red';
+                }
+            }
+
+            function verificarEmpate() {
+                const todasCasillasLlenas = Array.from(tablero.children).every(casilla => casilla.textContent !== '');
+                if (todasCasillasLlenas && !ganador) {
+                    mensaje.textContent = '¡Empate!';
+                }
+            }
+
+            function jugarMaquina() {
+                const casillasVacias = Array.from(tablero.children).filter(casilla => casilla.textContent === '');
+                if (casillasVacias.length > 0) {
+                    const casillaAleatoria = casillasVacias[Math.floor(Math.random() * casillasVacias.length)];
+                    casillaAleatoria.textContent = turno;
+                    verificarGanador();
+                    cambiarTurno();
+                    verificarEmpate();
+                }
+            }
+
+            
+            const botonMaquina = document.createElement('button');
+            botonMaquina.textContent = 'Jugar contra la Máquina';
+            botonMaquina.addEventListener('click', () => {
+                contraMaquina = !contraMaquina;
+                reiniciarJuego();
+                mensaje.textContent = contraMaquina ? 'Turno del jugador X' : 'Turno del jugador X (Máquina desactivada)';
+            });
+            document.body.appendChild(botonMaquina);
+
+            
+            function reiniciarJuego() {
+                ganador = null;
+                turno = 'X';
+                mensaje.textContent = contraMaquina ? 'Turno del jugador X' : 'Turno del jugador X (Máquina desactivada)';
+                Array.from(tablero.children).forEach(casilla => {
+                    casilla.textContent = '';
+                    casilla.style.color = 'black';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

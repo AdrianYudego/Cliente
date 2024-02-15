@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+<p>Pulsa una tecla para mostrar su código:</p>
+    
+
+    <script>
+var cont=0;
+       window.onload = function() { 
+
+        document.onkeypress = muestraInformacion; 
+        
+     }
+
+        function muestraInformacion() { 
+       cont++;
+            var evento = window.event;
+
+        if(evento.shiftKey){
+
+        var shift="shift pulsada";
+
+       }else{
+
+        shift="shift no pulsada"
+
+       }
+       
+            
+            var mensaje = 
+        "Propiedad keyCode: " + evento.keyCode + "<br>" + 
+        "Carácter pulsado: " 
+        
+       + String.fromCharCode(evento.charCode); info.innerHTML += "<br>--------------------------------------<br>" 
+       + mensaje + " "+ shift + " "+ "contador: "+cont;
+       
+    }
+    
+   
+    </script>
+<div id="info"></div>
+ 
+</body>
+</html>

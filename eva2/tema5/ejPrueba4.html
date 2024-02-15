@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 
+</head>
+<body>
+    
+<div id="boton" style="height: 200px; width:200px; background-color: blue;">hola</div>
+<p id="p"></p>
+
+    <script>
+        
+        var cont = 0;
+        var maxCont = Math.floor(Math.random() * 100) + 1; 
+
+        function generaColorAleatorio() {
+            var rojo = Math.floor(Math.random() * 256);
+            var verde = Math.floor(Math.random() * 256);
+            var azul = Math.floor(Math.random() * 256);
+            return "rgb(" + rojo + "," + verde + "," + azul + ")";
+        }
+
+        function mueveBoton() {
+            var p = document.getElementById('p');
+            cont++;
+            var evento = window.event;
+            var boton = document.getElementById('boton');
+
+            if (cont < maxCont) {
+                var nuevaCoordenadaX = evento.clientX + 2;
+                var nuevaCoordenadaY = evento.clientY + 7; 
+                boton.style.left = nuevaCoordenadaX + 'px';
+                boton.style.top = nuevaCoordenadaY + 'px';
+                boton.style.backgroundColor = generaColorAleatorio();
+            } else {
+               
+                p.innerHTML = "Has ganado";
+            }
+
+            boton.style.position = "absolute";
+        }
+
+        document.onmouseover = mueveBoton;
+        
+    </script>
+</body>
+</html>
