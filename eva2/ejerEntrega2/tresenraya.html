@@ -49,7 +49,7 @@
             let ganador = null;
             let contraMaquina = false;
 
-            // Inicializar el tablero
+            
             for (let i = 0; i < 9; i++) {
                 const casilla = document.createElement('div');
                 casilla.classList.add('casilla');
@@ -59,7 +59,7 @@
             }
 
             function manejarClic(event) {
-                if (ganador) return; // El juego ha terminado
+                if (ganador) return; 
 
                 const casilla = event.target;
                 const index = casilla.dataset.index;
@@ -125,7 +125,7 @@
                 }
             }
 
-            // Agrega un botón para activar/desactivar el modo contra la máquina
+            
             const botonMaquina = document.createElement('button');
             botonMaquina.textContent = 'Jugar contra la Máquina';
             botonMaquina.addEventListener('click', () => {
@@ -135,7 +135,7 @@
             });
             document.body.appendChild(botonMaquina);
 
-            // Función para reiniciar el juego
+            
             function reiniciarJuego() {
                 ganador = null;
                 turno = 'X';
