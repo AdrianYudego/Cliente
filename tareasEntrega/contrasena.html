@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .container {
+      width: 40%;
+      margin: 50px auto;
+    }
+
+    .valid {
+      color: green;
+    }
+
+    .invalid {
+      color: red;
+    }
+
+  </style>
+  <title>Generador de Contraseñas</title>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Generador de Contraseñas</h2>
+    <form id="passwordForm">
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" oninput="comprobar()">
+      <span class="icon" onclick="mostrarPassword()">Mostrar</span>
+
+      <p id="lengthMessage">Debe tener entre 8 y 20 caracteres.</p>
+      <p id="uppercaseMessage" >Debe contener al menos una mayúscula.</p>
+      <p id="numberMessage" >Debe contener al menos un número.</p>
+      <p id="symbolMessage" >Debe contener al menos un símbolo -/:;()&.?!%*.</p>
+      <p id="message">La contraseña debe cumplir con los requisitos.</p>
+    </form>
+  </div>
+
+  <script>
+    function comprobar() {
+      var passwordInput = document.getElementById('password');
+      var lengthMessage = document.getElementById('lengthMessage');
+      var uppercaseMessage = document.getElementById('uppercaseMessage');
+      var numberMessage = document.getElementById('numberMessage');
+      var symbolMessage = document.getElementById('symbolMessage');
+      var mainMessage = document.getElementById('message');
+
+      var hasUpperCase = /[A-Z]/.test(passwordInput.value);
+      var hasNumber = /\d/.test(passwordInput.value);
+      var hasSymbol = /[-/:;()&.?!%*]/.test(passwordInput.value);
+      var isValidLength = passwordInput.value.length >= 8 && passwordInput.value.length <= 20;
+
+
+      lengthMessage.classList.toggle('invalid', !isValidLength);
+      uppercaseMessage.classList.toggle('invalid', !hasUpperCase);
+      numberMessage.classList.toggle('invalid', !hasNumber);
+      symbolMessage.classList.toggle('invalid', !hasSymbol);
+      lengthMessage.classList.toggle('valid', isValidLength);
+      uppercaseMessage.classList.toggle('valid', hasUpperCase);
+      numberMessage.classList.toggle('valid', hasNumber);
+      symbolMessage.classList.toggle('valid', hasSymbol);
+
+      if (hasUpperCase && hasNumber && hasSymbol && isValidLength) {
+        mainMessage.textContent = 'Contraseña válida.';
+      } else {
+        mainMessage.textContent = 'La contraseña debe cumplir con los requisitos.';
+      }
+    }
+
+    function mostrarPassword() {
+      var passwordInput = document.getElementById("password");
+      var icon = document.querySelector('.icon');
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        icon.textContent = 'Ocultar';
+      } else {
+        passwordInput.type = "password";
+        icon.textContent = 'Mostrar';
+      }
+    }
+  </script>
+</body>
+</html>

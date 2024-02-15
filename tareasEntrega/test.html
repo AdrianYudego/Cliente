@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cuestionario</title>
+</head>
+<body>
+
+<div id="agregarPregunta">
+    <h2>Añadir nueva pregunta</h2>
+    <form id="formularioPregunta">
+        <label for="pregunta">Pregunta:</label>
+        <input type="text" id="pregunta" name="pregunta" required>
+
+        <label for="respuesta1">Respuesta 1:</label>
+        <input type="text" id="respuesta1" name="respuesta1" required>
+
+        <label for="respuesta2">Respuesta 2:</label>
+        <input type="text" id="respuesta2" name="respuesta2" required>
+
+        <label for="respuesta3">Respuesta 3:</label>
+        <input type="text" id="respuesta3" name="respuesta3" required>
+
+        <label for="correcta">Respuesta Correcta:</label>
+        <input type="text" id="correcta" name="correcta" required>
+
+        <button type="button" onclick="agregarNuevaPregunta()">Agregar Pregunta</button>
+    </form>
+</div>
+
+<div id="cuestionario"></div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var preguntas = JSON.parse(xhr.responseText);
+
+     
+            preguntas = preguntas.sort(function() { return 0.5 - Math.random() });
+
+            var cuestionarioContainer = document.getElementById('cuestionario');
+
+            preguntas.forEach(function(pregunta, index) {
+                var respuestas = [pregunta.correcta, pregunta.respuesta1, pregunta.respuesta2, pregunta.respuesta3];
+                respuestas = respuestas.sort(function() { return 0.5 - Math.random() });
+
+                var preguntaHTML = "<div class='pregunta'>";
+                preguntaHTML += "<p>" + pregunta.pregunta + "</p>";
+
+                respuestas.forEach(function(respuesta) {
+                    preguntaHTML += "<label><input type='radio' name='pregunta" + index + "' value='" + respuesta + "'> " + respuesta + "</label><br>";
+                });
+
+                preguntaHTML += "<button class='enviarRespuesta' data-respuesta='" + pregunta.correcta + "'>Enviar Respuesta</button>";
+                preguntaHTML += "<div class='resultado'></div>";
+                preguntaHTML += "</div>";
+
+                cuestionarioContainer.innerHTML += preguntaHTML;
+            });
+
+       
+            var botonesMostrarRespuesta = document.querySelectorAll('.enviarRespuesta');
+            botonesMostrarRespuesta.forEach(function(boton) {
+                boton.addEventListener('click', function() {
+                    var respuestaCorrecta = boton.getAttribute('data-respuesta');
+                    var respuestaUsuario = obtenerRespuestaSeleccionada(boton);
+                    var resultado = boton.parentElement.querySelector('.resultado');
+
+                    if (respuestaUsuario === respuestaCorrecta) {
+                        resultado.innerHTML = "¡Respuesta Correcta!";
+                        resultado.style.color = "green";
+                    } else {
+                        resultado.innerHTML = "Respuesta Incorrecta. La respuesta correcta es: " + respuestaCorrecta;
+                        resultado.style.color = "red";
+                    }
+                });
+            });
+        }
+    };
+
+    xhr.open("GET", "obtenerPreguntas.php", true);
+    xhr.send();
+
+
+    function obtenerRespuestaSeleccionada(boton) {
+        var opciones = boton.parentElement.querySelectorAll('input[type=radio]');
+        for (var i = 0; i < opciones.length; i++) {
+            if (opciones[i].checked) {
+                return opciones[i].value;
+            }
+        }
+        return null;
+    }
+
+    function agregarNuevaPregunta() {
+        var formulario = document.getElementById('formularioPregunta');
+        var nuevaPregunta = {
+            pregunta: formulario.pregunta.value,
+            respuesta1: formulario.respuesta1.value,
+            respuesta2: formulario.respuesta2.value,
+            respuesta3: formulario.respuesta3.value,
+            correcta: formulario.correcta.value
+        };
+
+ 
+        console.log("Nueva Pregunta:", nuevaPregunta);
+        formulario.reset();
+    }
+});
+</script>
+
+</body>
+</html>
