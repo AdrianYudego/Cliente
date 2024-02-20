@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Ejercicio3</title>
+		<style type="text/css">
+			body {
+				font-family: Verdana, Geneva, Tahoma, sans-serif;
+				text-align: left;
+				background-color: #FFFFCC;
+			}
+			
+			h3 {
+				cursor: pointer;
+			}
+			
+			#columna_izqda {
+				background-color: orange;
+				float: left;
+				width: 200px;
+				padding-left: 20px;
+				background-color: silver;
+			}
+			
+			#contenido_pagina {
+				padding-left: 50px;
+				margin-left: 200px;
+			}
+			
+			#pie_pagina {
+				clear: both;
+				text-align: center;
+			}
+			
+			#contenedor {
+				clear: both;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="cabecera">
+			<h1>Mi empresa con AJAX</h1>
+		</div>
+
+		<div id="contenedor">
+			<div id="columna_izqda">
+				<h3 id="principal" onclick="procesa(id)">Página principal</h3>
+				<h3 id="quienes"   onclick="procesa(id)">Quienes somos</h3>
+				<h3 id="servicios" onclick="procesa(id)">Servicios</h3>
+				<h3 id="clientes"  onclick="procesa(id)">Clientes</h3>
+				<h3 id="contacto"  onclick="procesa(id)">Contacto</h3>
+			</div>
+			<div id="contenido_pagina">
+			</div>
+		</div>
+
+		<div id="pie_pagina">
+			<p>El equipo de la empresa</p>
+		</div>
+	</body>
+	<script>
+		function procesa(queId) {
+			var xmlhttp = new XMLHttpRequest();
+			xmlhttp.onload = function(oEvent) {
+				if ((xmlhttp.status == 200) && (xmlhttp.readyState == 4)) {
+					if (this.responseText.indexOf("ERROR") > -1)
+						alert(this.responseText);
+					else {
+						contenido_pagina.innerHTML = this.responseText;
+					}
+				}
+			}
+			
+			xmlhttp.open("POST", "ejercicio3_ajax.php");
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xmlhttp.send("queId=" + queId);
+		}
+	</script>
+</html>
