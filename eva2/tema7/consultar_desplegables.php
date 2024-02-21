@@ -18,8 +18,6 @@ if (!$result) {
     exit();
 }
 
-
-
 while ($row = $result->fetch_assoc()) {
     $nombres[] = $row['nombre'];
 }
