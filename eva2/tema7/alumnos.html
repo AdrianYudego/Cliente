@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio3</title>
+    <style type="text/css">
+  
+    </style>
+</head>
+
+<body>
+    <div id="cabecera">
+        <h1>Mi empresa con AJAX</h1>
+    </div>
+
+    <div id="contenedor">
+        <div id="columna_izqda">
+            <input type="text" id="alumno">
+            <button onclick="consultarAlumno()">Enviar</button>
+        </div>
+        <div id="contenido_pagina">
+        </div>
+    </div>
+
+    <script>
+        function consultarAlumno() {
+            var alumno = document.getElementById("alumno").value;
+
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onload = function (oEvent) {
+                if ((xmlhttp.status == 200) && (xmlhttp.readyState == 4)) {
+                    if (this.responseText.indexOf("ERROR") > -1)
+                        alert(this.responseText);
+                    else {
+                        document.getElementById("contenido_pagina").innerHTML = this.responseText;
+                    }
+                }
+            }
+            xmlhttp.open("POST", "consultar_alumno.php");
+            xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlhttp.send("alumno=" + alumno);
+        }
+    </script>
+</body>
+
+</html>

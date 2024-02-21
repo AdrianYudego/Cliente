@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 3</title>
+    <style type="text/css">
+    </style>
+</head>
+
+<body>
+    <div id="cabecera">
+        <h1>Selecciona alumnos</h1>
+    </div>
+
+    <div id="contenedor">
+        <div id="columna_izqda">
+            <select id="alumno"></select>
+        </div>
+        <div id="contenido_pagina">
+        </div>
+    </div>
+
+    <script>
+        consultarAlumno();
+        function consultarAlumno() {
+            var alumnoSelect = document.getElementById("alumno");
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var nombres = JSON.parse(this.responseText);
+                    nombres.forEach(function (nombre) {
+                        var option = document.createElement("option");
+                        option.text = nombre;
+                        alumnoSelect.add(option);
+                        document.getElementById("contenido_pagina").innerHTML = this.responseText;
+                    });
+                }
+            };
+
+            xmlhttp.open("GET", "consultar_desplegables.php", true);
+            xmlhttp.send();
+        }
+    </script>
+</body>
+
+</html>
