@@ -11,7 +11,7 @@
     
     <input type="text" id="inputId">
 
-    <label for="inputNombre">Nombre del alumno:</label>
+    <label for="inputNombre">Nombre del alumno:Bobo o que?</label>
 
     <input type="text" id="inputNombre">
 
@@ -22,8 +22,8 @@
         function insertar() {
             var id = document.getElementById("inputId").value;
             var nombre = document.getElementById("inputNombre").value;
-            var xhr = new XMLHttpRequest();
             xhr.open("POST", "insert.php", true);
+            var xhr = new XMLHttpRequest();
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {

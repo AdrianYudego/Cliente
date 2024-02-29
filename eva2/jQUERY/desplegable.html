@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #serviciosContent, #productosContent {
+            display: none;
+        }
+        
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#servicios").click(function(){
+                $("#serviciosContent").slideToggle();
+            });
+        });
+
+        $(document).ready(function(){
+            $("#productos").click(function(){
+                $("#productosContent").slideToggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Menu desplegable animado</h1>
+    <div id="servicios">Servicios</div>
+    <div id="serviciosContent">
+        <ul>
+            <li>Servicio 1</li>
+            <li>Servicio 2</li>
+            <li>Servicio 3</li>
+        </ul>
+    </div> 
+    <div id="productos">Productos</div>
+    <div id="productosContent">
+        <ul>
+            <li>Producto 1</li>
+            <li>Producto 2</li>
+            <li>Producto 3</li>
+        </ul>
+    </div>
+</body>
+</html>
