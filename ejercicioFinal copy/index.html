@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags y enlaces a estilos -->
+
+    <!-- Incluir jQuery (asegúrate de tener acceso a Internet o descargarlo y enlazar localmente) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Incluir js-cookie desde CDN -->
+    <script src="
+    https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+    "></script>
+
+</head>
+<body>
+    <!-- Dentro del Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="#!">Mi tienda</a>
+
+        <!-- Botón de Login -->
+        <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#login-modal" id="logeo" >Login</span>
+
+        <!-- Contenedor de la imagen del carrito -->
+        <span id="carrito-icon-container" data-bs-toggle="modal" data-bs-target="#carrito-modal">
+            <img src="imagenes/carrito.png" alt="Carrito" id="carrito-icon" style="height: 20px" />
+            <span id="carrito-cantidad">0</span>
+        </span>
+
+    </div>
+</nav>
+
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="productos-container">
+                <!-- Aquí se cargarán los productos dinámicamente por AJAX -->
+            </div>
+        </div>
+    </section>
+    <footer class="py-5 bg-dark">
+        <!-- Contenido del pie de página -->
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  
+    <!-- Enlace al archivo de funciones relacionadas con el carrito -->
+    <script src="js/carrito.js"></script>
+    <script>
+       
+        obtenerDatos();
+
+    </script>
+    <div id="carrito-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tu Carrito</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="carrito-contenido">
+                    <!-- Aquí se mostrarán los productos del carrito -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="finalizarCompra()">Finalizar compra</button>
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="login-modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Formulario de Login -->
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="dni" class="form-label">DNI:</label>
+                            <input type="text" class="form-control" id="dni" name="dni" required>
+                        </div>
+                        <button type="button" onclick="login()" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>

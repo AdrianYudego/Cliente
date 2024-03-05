@@ -4,7 +4,8 @@ function inicializarCarrito(datos) {
     carrito = datos.map(producto => ({
         codArticulo: producto.codArticulo,
         nombre: producto.nombre,
-        precio: producto.PVP,
+        PVP: producto.PVP,
+        IVA: producto.IVA,
         cantidadDisponible: producto.cantidad,
         cantidadEnCarrito: 0
     }));
@@ -23,7 +24,6 @@ function agregarAlCarrito(codArticulo) {
     if (producto) {
         if (producto.cantidadDisponible > 0 && producto.cantidadEnCarrito < producto.cantidadDisponible) {
             producto.cantidadEnCarrito++;
-            console.log('Producto agregado al carrito:', producto);
             actualizarCarrito();
         } else {
             alert('Producto agotado');
@@ -36,7 +36,7 @@ function agregarAlCarrito(codArticulo) {
 function actualizarCarrito() {
     var cantidadTotal = carrito.reduce((total, producto) => total + producto.cantidadEnCarrito, 0);
     $('#carrito-cantidad').text(cantidadTotal);
-    mostrarContenidoCarrito();
+   
 }
 
 function mostrarContenidoCarrito() {
@@ -49,10 +49,15 @@ function mostrarContenidoCarrito() {
         carritoContenido.append('<p>Tu carrito está vacío.</p>');
     } else {
         productosEnCarrito.forEach(producto => {
-            carritoContenido.append(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito}</p>`);
+            var PVP = parseFloat(producto.PVP);
+            var IVA = (producto.IVA);
+            var cantidadEnCarrito = (producto.cantidadEnCarrito);
+                var precio = (PVP + (PVP * IVA)) * cantidadEnCarrito;
+            carritoContenido.append(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito}- Precio: ${precio}</p>`);
         });
     }
 }
+
 
 $(document).ready(function () {
     $('#carrito-icon-container').on('click', function () {
