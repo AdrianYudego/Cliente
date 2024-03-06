@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro IMC</title>
+</head>
+<body>
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre">
+        <label for="peso">Peso (kg):</label>
+        <input type="text" id="peso">
+        <label for="altura">Altura (m):</label>
+        <input type="text" id="altura">
+        <button onclick="agregarPersona()">Añadir Persona</button>
+        <button onclick="modificarPersona()">Modificar Persona</button>
+        <button onclick="calcularIMC()">Calcular IMC</button>
+    </div>
+    <div id="output"></div>
+
+    <script>
+        class Persona {
+            constructor(nombre, peso, altura) {
+                this.nombre = nombre;
+                this.peso = peso;
+                this.altura = altura;
+            }
+        }
+
+        class RegistroIMC {
+            constructor() {
+                this.personas = [];
+                this.personasNoNormales = [];
+            }
+
+            agregarPersona(persona) {
+                this.personas.push(persona);
+            }
+
+            modificarPersona(nombre, peso, altura) {
+                const persona = this.personas.find(p => p.nombre === nombre);
+                if (persona) {
+                    persona.peso = peso;
+                    persona.altura = altura;
+                    return true;
+                }
+                return false;
+            }
+
+            calcularIMC() {
+                let outputHTML = "";
+                for (const persona of this.personas) {
+                    const imc = persona.peso / Math.pow(persona.altura, 2);
+                    let estado;
+                    if (imc >= 0 && imc <= 18.48) {
+                        estado = "Demasiado delgada";
+                        this.personasNoNormales.push({ nombre: persona.nombre, imc, estado });
+                    } else if (imc >= 18.49 && imc <= 24.99) {
+                        estado = "Peso normal";
+                    } else {
+                        estado = "Demasiado obesa";
+                        this.personasNoNormales.push({ nombre: persona.nombre, imc, estado });
+                    }
+
+                    outputHTML += `<p>${persona.nombre}: IMC = ${imc.toFixed(2)}</p>`;
+                }
+                document.getElementById("output").innerHTML = outputHTML;
+            }
+
+        }
+
+        const registroIMC = new RegistroIMC();
+
+        function agregarPersona() {
+            const nombre = document.getElementById("nombre").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+
+            if (nombre && !isNaN(peso) && !isNaN(altura)) {
+                const personaNueva = new Persona(nombre, peso, altura);
+                registroIMC.agregarPersona(personaNueva);
+                mostrarMensaje(`Persona ${nombre} añadida con éxito.`);
+            } else {
+                mostrarMensaje("Por favor, complete todos los campos correctamente.");
+            }
+        }
+
+        function modificarPersona() {
+            const nombre = document.getElementById("nombre").value;
+            const peso = parseFloat(document.getElementById("peso").value);
+            const altura = parseFloat(document.getElementById("altura").value);
+
+            if (registroIMC.modificarPersona(nombre, peso, altura)) {
+                mostrarMensaje(`Datos de ${nombre} modificados con éxito.`);
+            } else {
+                mostrarMensaje(`No se encontró a la persona ${nombre}.`);
+            }
+        }
+
+        function calcularIMC() {
+            registroIMC.calcularIMC();
+        }
+
+        function mostrarMensaje(mensaje) {
+            document.getElementById("output").innerHTML = `<p>${mensaje}</p>`;
+        }
+    </script>
+</body>
+</html>

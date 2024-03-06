@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+       
+            <div id="columna_izqda">
+                <label>nombre</label>
+                <input type="text" id="nombre"> 
+                <label>peso</label>
+                <input type="text" id="peso">
+                <label>altura</label>
+                <input type="text" id="altura"> 
+                <button onclick="procesa()">Añadir</button>
+                <button onclick="procesa()">Modificar</button>
+                <button onclick="calcular()">Calcular</button>
+                <p id="mensaje"></p>
+            </div>
+            <script>
+                var clientes=[];
+                var pesos=[];
+                var alturas=[];
+                var nombres=[];
+                var imcs=[];
+            function procesa(){
+               var cliente=document.getElementById('nombre').value;
+               var peso=document.getElementById('peso').value;
+               var altura=document.getElementById('altura').value;
+                var sw=false;
+               for(var i=0;i<=clientes.length;i++){
+                
+                if(clientes[i]==cliente){
+                    mensaje.textContent="Usuario ya existente";  
+                    sw=true; 
+                }
+               }
+               if(sw==false){
+                clientes[clientes.length]=cliente;
+                pesos[pesos.length]=peso;
+                alturas[alturas.length]=altura;
+               }
+               
+            }
+
+            function calcular(){
+                var cliente=document.getElementById('nombre').value;
+
+                for(var i=0;i<=clientes.length;i++){
+                    if(clientes[i]==cliente){
+                        var peso=parseFloat(pesos[i]);
+                        var altura=parseFloat(alturas[i])*parseFloat(alturas[i]);
+                       
+                        var imc=(peso/altura)*10000;
+                        console.log(imc);
+                        if(imc>25){
+                            almacenarGordos(cliente,imc);
+                        }
+                    mensaje.textContent="Tu imc es " + imc;   
+                }
+                }
+
+            }
+            function modificar(){
+                var peso=document.getElementById('peso').value;
+               var altura=document.getElementById('altura').value;
+                for(var i=0;i<=clientes.length;i++){
+                    if(clientes[i]==cliente){
+                       pesos[i]=peso;
+                       alturas[i]=altura;
+                    
+                }
+                } 
+                mensaje.textContent="Modificado "; 
+            }
+
+
+        function almacenarGordos(nombre,imc){
+            nombres[nombres.length]=nombre;
+            imcs[imcs.length]=imc;
+        }
+              
+            </script>
+</body>
+</html>

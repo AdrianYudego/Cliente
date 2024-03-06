@@ -14,6 +14,7 @@ function inicializarCarrito(datos) {
 
 function agregarAlCarrito(codArticulo) {
     var producto = null;
+
     for (var i = 0; i < carrito.length; i++) {
         if (codArticulo == carrito[i].codArticulo) {
             producto = carrito[i];
@@ -24,34 +25,52 @@ function agregarAlCarrito(codArticulo) {
     if (producto) {
         if (producto.cantidadDisponible > 0 && producto.cantidadEnCarrito < producto.cantidadDisponible) {
             producto.cantidadEnCarrito++;
-            var cantidadTotal =  producto.cantidadEnCarrito;
-    $('#carrito-cantidad').text(cantidadTotal);
-        } 
+            var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
+            $('#carrito-cantidad').text(cantidadTotal);
+        } else {
+            alert('Producto agotado');
+        }
+    } else {
+        alert('Producto no encontrado');
     }
 }
 
+function eliminar(codArticulo) {
+    var producto = null;
+    for (var i = 0; i < carrito.length; i++) {
+        if (codArticulo == carrito[i].codArticulo) {
+            producto = carrito[i];
+            break;
+        }
+    }
 
-
+    if (producto && producto.cantidadEnCarrito > 0) {
+        producto.cantidadEnCarrito--;
+        var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
+        $('#carrito-cantidad').text(cantidadTotal);
+    }
+}
 
 function mostrarContenidoCarrito() {
     var carritoContenido = $('#carrito-contenido');
-    
 
     var productosEnCarrito = carrito.filter(producto => producto.cantidadEnCarrito > 0);
 
     if (productosEnCarrito.length === 0) {
         carritoContenido.html('<p>Tu carrito está vacío.</p>');
     } else {
+        carritoContenido.empty();
         productosEnCarrito.forEach(producto => {
             var PVP = parseFloat(producto.PVP);
             var IVA = (producto.IVA);
             var cantidadEnCarrito = (producto.cantidadEnCarrito);
             var precio = (PVP + (PVP * IVA)) * cantidadEnCarrito;
-            carritoContenido.html(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito}- Precio: ${precio} <button type="button" onclick="eliminar(${producto.codArticulo})">Quitar</button></p>`);
-            
+            carritoContenido.append(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito}- Precio: ${precio} <button type="button" onclick="eliminar(${producto.codArticulo})">Quitar</button></p>`);
         });
-        
     }
+
+    // Asegúrate de actualizar el carrito después de modificar el contenido
+    actualizarCarrito();
 }
 
 function eliminar(codArticulo) {
@@ -144,7 +163,7 @@ function finalizarCompra() {
     var dni = Cookies.get('dni');
 
     if (dni) {
-        // Realizar la solicitud al servidor para actualizar la base de datos
+        
         $.ajax({
             url: 'finalizarCompra.php',
             type: 'POST',
@@ -154,11 +173,11 @@ function finalizarCompra() {
             },
             dataType: 'json',
             success: function(response) {
-                // Manejar la respuesta del servidor (si es necesario)
+            
                 console.log(response);
             },
             error: function(error) {
-                // Manejar errores si los hay
+                
                 console.error(error);
             }
         });
