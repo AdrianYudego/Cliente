@@ -1,12 +1,12 @@
 <?php
-header('Content-Type: application/json');
-$data = json_decode(file_get_contents('php://input'), true);
 
-if (isset($data['dni']) && isset($data['carrito'])) {
-    $dni = $data['dni'];
-    $carrito = $data['carrito'];
 
-}
+$dni = $_POST['dni'];
+$carrito = json_decode($_POST['array'], true); 
+
+echo($carrito);
+
+
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "";
@@ -37,13 +37,13 @@ if ($conn->query($sql) === TRUE) {
                           VALUES ('$codVenta', '$codArticulo', '$cantidad', '$precio')";
 
             $conn->query($sqlLineas);
+            $sqlStock = "UPDATE articulos SET cantidad = cantidad - '$cantidad' WHERE codArticulo = '$codArticulo'";
+            $conn->query($sqlStock);
         }
     }
 
-    echo json_encode(['success' => true]);
-} else {
-    echo json_encode(['success' => false]);
 }
+
 
 $conn->close();
 ?>

@@ -7,6 +7,7 @@ function inicializarCarrito(datos) {
         nombre: producto.nombre,
         PVP: producto.PVP,
         IVA: producto.IVA,
+        cantidadMinima:producto.cantidadMinima,
         cantidadDisponible: producto.cantidad,
         cantidadEnCarrito: 0
     }));
@@ -60,18 +61,28 @@ function mostrarContenidoCarrito() {
         carritoContenido.html('<p>Tu carrito está vacío.</p>');
     } else {
         carritoContenido.empty();
+
+        var totalPagar = 0;  
+
         productosEnCarrito.forEach(producto => {
             var PVP = parseFloat(producto.PVP);
-            var IVA = (producto.IVA);
-            var cantidadEnCarrito = (producto.cantidadEnCarrito);
-            var precio = (PVP + (PVP * IVA)) * cantidadEnCarrito;
-            carritoContenido.append(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito}- Precio: ${precio} <button type="button" onclick="eliminar(${producto.codArticulo})">Quitar</button></p>`);
-        });
-    }
+            var IVA = parseFloat(producto.IVA);
+            var cantidadEnCarrito = parseInt(producto.cantidadEnCarrito);
 
-    // Asegúrate de actualizar el carrito después de modificar el contenido
-    actualizarCarrito();
+            
+            var precio = ((PVP + (PVP * IVA)) * cantidadEnCarrito).toFixed(2);
+
+            
+            totalPagar += parseFloat(precio);
+
+            carritoContenido.append(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito} - Precio: ${precio} <button type="button" onclick="eliminar(${producto.codArticulo})">Quitar</button></p>`);
+        });
+
+        
+        carritoContenido.append(`<p>Total a pagar: ${totalPagar.toFixed(2)}</p>`);
+    }
 }
+
 
 function eliminar(codArticulo) {
     var producto = null;
@@ -95,6 +106,7 @@ function eliminar(codArticulo) {
 $(document).ready(function () {
     $('#carrito-icon-container').on('click', function () {
         mostrarContenidoCarrito();
+       
     });
 });
 
@@ -109,6 +121,9 @@ function obtenerDatos() {
             var productosContainer = $('#productos-container');
 
             data.forEach(function (producto) {
+                var diferencia = producto.cantidad - producto.cantidadMinima;
+                var mensaje = diferencia < 0 ? `<p style="color: red;">Quedan pocos </p>` : '';
+
                 var productoHtml = `
                     <div class="col mb-5">
                         <div class="card h-100">
@@ -116,7 +131,9 @@ function obtenerDatos() {
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <h5 class="fw-bolder">${producto.nombre}</h5>
-                                    ${producto.PVP}
+                                    Precio: ${producto.PVP} $<br>
+                                    ${mensaje}<br>
+                                    Stock restante: ${producto.cantidad}
                                 </div>
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -134,8 +151,10 @@ function obtenerDatos() {
     });
 }
 
+
 function login() {
     var dni = $('#dni').val();
+   
     $.ajax({
         url: 'usuario.php',
         type: 'GET',
@@ -161,30 +180,35 @@ function login() {
 }
 function finalizarCompra() {
     var dni = Cookies.get('dni');
-
-    if (dni) {
+    if (!dni) {
         
-        $.ajax({
-            url: 'finalizarCompra.php',
-            type: 'POST',
-            data: {
-                dni: dni,
-                carrito: JSON.stringify(carrito)
-            },
-            dataType: 'json',
-            success: function(response) {
+        $('#login-modal').modal('show');
+    }else{
+    var array = JSON.stringify(carrito);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "finalizarCompra.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
             
-                console.log(response);
-            },
-            error: function(error) {
-                
-                console.error(error);
-            }
-        });
-    } else {
-        console.log('No se encontró DNI almacenado en la cookie');
-    }
+           alert('compra finalizada');
+        }
+    };
+    xhr.send("dni=" + dni + "&array=" + array); 
+}
 }
 
+$(document).ready(function () {
+   
+    var dniCookie = Cookies.get('dni');
+
+    if (dniCookie) {
+        
+        Cookies.remove('dni');
+    }
+
+    
+});
 
 
