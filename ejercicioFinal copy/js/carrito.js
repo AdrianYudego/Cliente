@@ -122,7 +122,7 @@ function obtenerDatos() {
 
             data.forEach(function (producto) {
                 var diferencia = producto.cantidad - producto.cantidadMinima;
-                var mensaje = diferencia < 0 ? `<p style="color: red;">Quedan pocos </p>` : '';
+                var mensaje = diferencia < 0 ? `<p style="color: red;">Quedan pocas unidades </p>` : '';
 
                 var productoHtml = `
                     <div class="col mb-5">
@@ -191,8 +191,10 @@ function finalizarCompra() {
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            
-           alert('compra finalizada');
+            var mensajeFinal = $('#mensajeFinal');
+
+            mensajeFinal.html("Gracias por su compra");
+
         }
     };
     xhr.send("dni=" + dni + "&array=" + array); 

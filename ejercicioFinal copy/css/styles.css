@@ -87,6 +87,11 @@
   box-sizing: border-box;
 }
 
+
+#mensajeFinal{
+  text-align: center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
