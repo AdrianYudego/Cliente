@@ -221,19 +221,18 @@ function mostrarVentas() {
         dataType: 'json',
         success: function (data) {
             var ventasContainer = $('#ventas-modal-body');
+            var dniCookie = Cookies.get('dni');
 
            
             ventasContainer.empty();
 
-            data.forEach(function (producto) {
+            data.forEach(function (venta) {
                 var vLinea = document.createElement('div');
-                vLinea.innerHTML = `<p>Codigo: ${producto.codVenta} Fecha: ${producto.fecha} DNI: ${producto.DNI} </p>`;
+                vLinea.innerHTML = `<p>Codigo: ${venta.codVenta} Fecha: ${venta.fecha} DNI: ${venta.DNI} </p>`;
+               
                 ventasContainer.append(vLinea);
             });
-        },
-        error: function (error) {
-            console.error('Error al cargar las ventas:', error);
-            console.log(data);
+        
         }
     });
 }

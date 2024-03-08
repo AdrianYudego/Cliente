@@ -31,7 +31,7 @@ if ($conn->query($sql) === TRUE) {
 
        
         if ($cantidad > 0) {
-            $precio = $producto['PVP'] * (1 + $producto['IVA']);  
+            $precio = $producto['PVP'] * $producto['cantidadEnCarrito'] ;  
 
             $sqlLineas = "INSERT INTO lineas (codVenta, codArticulo, cantidad, precio) 
                           VALUES ('$codVenta', '$codArticulo', '$cantidad', '$precio')";
