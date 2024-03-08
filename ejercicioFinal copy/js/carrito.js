@@ -213,4 +213,33 @@ $(document).ready(function () {
     
 });
 
+function mostrarVentas() {
+    $.ajax({
+        url: 'ventas.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var ventasContainer = $('#ventas-modal-body');
 
+           
+            ventasContainer.empty();
+
+            data.forEach(function (producto) {
+                var vLinea = document.createElement('div');
+                vLinea.innerHTML = `<p>Codigo: ${producto.codVenta} Fecha: ${producto.fecha} DNI: ${producto.DNI} </p>`;
+                ventasContainer.append(vLinea);
+            });
+        },
+        error: function (error) {
+            console.error('Error al cargar las ventas:', error);
+            console.log(data);
+        }
+    });
+}
+
+
+$(document).ready(function () {
+    $('#ventas').on('click', function () {
+        mostrarVentas();
+    });
+});
