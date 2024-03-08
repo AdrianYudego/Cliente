@@ -116,7 +116,7 @@ function obtenerDatos() {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            inicializarCarrito(data);
+            inicializarCarrito(data);          
 
             var productosContainer = $('#productos-container');
 
@@ -214,6 +214,7 @@ $(document).ready(function () {
 });
 
 function mostrarVentas() {
+   
     $.ajax({
         url: 'ventas.php',
         type: 'GET',

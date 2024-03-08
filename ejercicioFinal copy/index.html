@@ -20,7 +20,7 @@
 
         <!-- Botón de Login -->
         <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#login-modal" id="logeo" >Login</span>
-        <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#ventas-modal" id="ventas" >Ver ventas</span>
+        <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#ventas-modal" id="ventas" >Mostrar ventas</span>
         <!-- Contenedor de la imagen del carrito -->
         <span id="carrito-icon-container" data-bs-toggle="modal" data-bs-target="#carrito-modal">
             <img src="imagenes/carrito.png" alt="Carrito" id="carrito-icon" style="height: 20px" />
@@ -46,13 +46,11 @@
     <!-- Enlace al archivo de funciones relacionadas con el carrito -->
     <script src="js/carrito.js"></script>
     
-    <script>          
+    <script>
       
         obtenerDatos();
      
-
     </script>
-    
     <div id="carrito-modal" class="modal fade" tabindex="-1">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
@@ -91,7 +89,6 @@
             </div>
         </div>
     </div>
-    <!-- ... tu código HTML anterior ... -->
 <!-- ... tu código HTML anterior ... -->
 
 <div id="ventas-modal" class="modal fade" tabindex="-1">
@@ -102,15 +99,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="ventas-modal-body">
-                <!-- Aquí se mostrarán los datos de las ventas -->
+                <script>
+      
+                    mostrarVentas();
+                 
+                </script>
             </div>
         </div>
     </div>
 </div>
-
-<!-- ... tu código HTML posterior ... -->
-
-
-    
 </body>
 </html>
