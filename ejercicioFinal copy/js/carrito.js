@@ -1,6 +1,19 @@
 var carrito = [];
 
 
+var Iniciardevoluciones = [];  
+
+function inicializarDevoluciones(datos) {
+    Iniciardevoluciones = datos.map(devolucion => ({
+        CodLinea: devolucion.CodLinea,
+        codVenta: devolucion.codVenta,
+        codArticulo: devolucion.codArticulo,
+        cantidad: devolucion.cantidad,
+        precio: devolucion.precio,
+        cantidadAdevolver:0
+    }));
+}
+
 function inicializarCarrito(datos) {
     carrito = datos.map(producto => ({
         codArticulo: producto.codArticulo,
@@ -23,17 +36,12 @@ function agregarAlCarrito(codArticulo) {
         }
     }
 
-    if (producto) {
+    
         if (producto.cantidadDisponible > 0 && producto.cantidadEnCarrito < producto.cantidadDisponible) {
             producto.cantidadEnCarrito++;
             var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
             $('#carrito-cantidad').text(cantidadTotal);
-        } else {
-            alert('Producto agotado');
-        }
-    } else {
-        alert('Producto no encontrado');
-    }
+        } 
 }
 
 function eliminar(codArticulo) {
@@ -154,30 +162,30 @@ function obtenerDatos() {
 
 function login() {
     var dni = $('#dni').val();
-   
+
     $.ajax({
-        url: 'usuario.php',
+        url: 'usuario.php?dni=' + dni,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             var logeo = $('#logeo');
             var contLogeo;
 
-            for (var i = 0; i < data.length; i++) {
-                if (data[i].DNI == dni) {
-                    contLogeo = "Bienvenido " + data[i].nombre;
-                    Cookies.set('dni', dni);
-                    logeo.empty().append(contLogeo);
-                    $('#login-modal').modal('hide');
-                    break;
-                } else {
-                    contLogeo = "Usuario incorrecto, prueba de nuevo";
-                    logeo.empty().append(contLogeo);
-                }
+            if (data.nombre) {
+                
+                contLogeo = "Bienvenido " + data.nombre;
+                Cookies.set('dni', dni);
+                $('#login-modal').modal('hide');
+            } else {
+                
+                contLogeo = "Usuario incorrecto, prueba de nuevo";
             }
+
+            logeo.empty().append(contLogeo);
         },
     });
 }
+
 function finalizarCompra() {
     var dni = Cookies.get('dni');
     if (!dni) {
@@ -243,3 +251,83 @@ $(document).ready(function () {
         mostrarVentas();
     });
 });
+
+
+function devoluciones() {
+    var dniCookie = Cookies.get('dni');
+    console.log(dniCookie);
+   if(dniCookie){
+    $.ajax({
+        url: 'devolucion.php',
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            inicializarDevoluciones(data);
+            console.log(Iniciardevoluciones);
+            var devolucionesContainer = $('#devoluciones-modal-body');
+           
+   
+            devolucionesContainer.empty();
+
+            data.forEach(function (devolucion) {
+                carrito.forEach(function (producto) {
+                    if (devolucion.codArticulo == producto.codArticulo) {
+                        var pLinea = document.createElement('div');
+                console.log(devolucion.CodLinea);
+                        pLinea.innerHTML = `<p>Articulo: ${producto.nombre} Cantidad comprada: ${devolucion.cantidad}</p>` +
+                   `<button class="btn btn-outline-dark mt-auto" onclick="devolucion(${devolucion.codArticulo}, ${devolucion.CodLinea})">Añadir a la devolución</button>`;
+                        devolucionesContainer.append(pLinea);
+                    }
+                });
+            });
+           
+        }
+    });
+}else{
+   
+    var loginContainer = $('#devoluciones-modal-body');
+            
+    
+    loginContainer.append("Logeate antes de realizar una devolucion");
+   
+  
+}
+}
+
+$(document).ready(function () {
+    $('#devoluciones').on('click', function () {
+        devoluciones();
+    });
+});
+
+function devolucion(codArticulo,codLinea) {
+    console.log(codLinea);
+    console.log(codArticulo);
+    Iniciardevoluciones.forEach(function(devoluciones){
+        if(devoluciones.CodLinea==codLinea){
+            devoluciones.cantidadAdevolver++;
+        }
+    });
+   
+     console.log(Iniciardevoluciones);
+    }
+
+
+function finalizarDevolucion() {
+   
+    var array = JSON.stringify(Iniciardevoluciones);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "finalizarDevolucion.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var mensajeFinal = $('#mensajeFinal');
+
+            mensajeFinal.html("Devolucion realizada");
+
+        }
+    };
+    xhr.send("array=" + array); 
+}
+

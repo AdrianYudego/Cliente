@@ -12,23 +12,25 @@ if ($conn->connect_error) {
     die("No hay conexión: " . $conn->connect_error);
 }
 
-$query = "SELECT * FROM usuarios";
+$dni =$_GET['dni'];
 
-$result = $conn->query($query);
-if (!$result) {
-    die("Error al ejecutar la consulta: " . $conn->error);
-}
 
-$productos = array(); 
+    $query = "SELECT * FROM usuarios WHERE DNI = '" . $dni . "'";
+    
+    $result = $conn->query($query);
+    if (!$result) {
+        die("Error al ejecutar la consulta: " . $conn->error);
+    }
 
-while ($row = $result->fetch_assoc()) {
-   
-    $usuarios[] = $row;
-}
+    $usuario = $result->fetch_assoc();
+
+    if ($usuario) {
+        session_start();
+        $_SESSION['dni'] = $dni;
+
+        echo json_encode($usuario);
+    } 
 
 
 $conn->close();
-
-
-echo json_encode($usuarios);
 ?>
