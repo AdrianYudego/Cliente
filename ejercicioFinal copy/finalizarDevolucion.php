@@ -1,11 +1,6 @@
 <?php
 
-
-
-$devoluciones = json_decode($_POST['array'], true); 
-
-
-
+$devoluciones = json_decode($_POST['array'], true);
 
 $dbhost = "localhost";
 $dbuser = "root";
@@ -18,32 +13,30 @@ if ($conn->connect_error) {
     die("No hay conexión: " . $conn->connect_error);
 }
 
-
-
-$sql = "INSERT INTO ventas (fecha, DNI) VALUES (CURRENT_DATE, '$dni')";
-
-if ($conn->query($sql) === TRUE) {
-    $codVenta = $conn->insert_id;
-
-    foreach ($devoluciones as $producto) {
-        $codArticulo = $producto['codArticulo'];
-        $cantidad = $producto['cantidadEnCarrito'];
-
-       
-        if ($cantidad > 0) {
-            $precio = $producto['PVP'] * $producto['cantidadEnCarrito'] ;  
-
-            $sqlLineas = "INSERT INTO lineas (codVenta, codArticulo, cantidad, precio) 
-                          VALUES ('$codVenta', '$codArticulo', '$cantidad', '$precio')";
-
-            $conn->query($sqlLineas);
-            $sqlStock = "UPDATE articulos SET cantidad = cantidad - '$cantidad' WHERE codArticulo = '$codArticulo'";
-            $conn->query($sqlStock);
+foreach ($devoluciones as $producto) {
+    $codLinea = $producto['CodLinea'];
+    $cantidadAdevolver = $producto['cantidadAdevolver'];
+    $cantidad = $producto['cantidad'];
+    $precio = $producto['precio'];
+    $cantidadRestante = $cantidad - $cantidadAdevolver;
+$codArticulo=$producto['codArticulo'];
+    if ($cantidadAdevolver > 0) {
+        if ($cantidadRestante > 0) {
+            $sqlLineas = "UPDATE lineas
+                          SET cantidad = $cantidadRestante
+                          WHERE CodLinea = $codLinea";
+        } else {
+            $sqlLineas = "DELETE FROM lineas WHERE CodLinea = $codLinea";
         }
+
+        $sqlArticulos = "UPDATE articulos
+                         SET cantidad = cantidad + $cantidadAdevolver
+                         WHERE codArticulo = $codArticulo";
+        
+        $conn->query($sqlLineas);
+        $conn->query($sqlArticulos);
     }
-
 }
-
 
 $conn->close();
 ?>

@@ -14,9 +14,11 @@ if ($conn->connect_error) {
     die("No hay conexión: " . $conn->connect_error);
 }
 
-$query = "SELECT lineas.* FROM lineas 
+$query = "SELECT lineas.*, ventas.fecha 
+          FROM lineas 
           INNER JOIN ventas ON lineas.codVenta = ventas.codVenta
           WHERE ventas.DNI = '$dni'";
+
 
 $result = $conn->query($query);
 if (!$result) {

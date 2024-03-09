@@ -44,21 +44,7 @@ function agregarAlCarrito(codArticulo) {
         } 
 }
 
-function eliminar(codArticulo) {
-    var producto = null;
-    for (var i = 0; i < carrito.length; i++) {
-        if (codArticulo == carrito[i].codArticulo) {
-            producto = carrito[i];
-            break;
-        }
-    }
 
-    if (producto && producto.cantidadEnCarrito > 0) {
-        producto.cantidadEnCarrito--;
-        var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
-        $('#carrito-cantidad').text(cantidadTotal);
-    }
-}
 
 function mostrarContenidoCarrito() {
     var carritoContenido = $('#carrito-contenido');
@@ -203,6 +189,7 @@ function finalizarCompra() {
 
             mensajeFinal.html("Gracias por su compra");
 
+            
         }
     };
     xhr.send("dni=" + dni + "&array=" + array); 
@@ -255,7 +242,6 @@ $(document).ready(function () {
 
 function devoluciones() {
     var dniCookie = Cookies.get('dni');
-    console.log(dniCookie);
    if(dniCookie){
     $.ajax({
         url: 'devolucion.php',
@@ -263,7 +249,6 @@ function devoluciones() {
         dataType: 'json',
         success: function (data) {
             inicializarDevoluciones(data);
-            console.log(Iniciardevoluciones);
             var devolucionesContainer = $('#devoluciones-modal-body');
            
    
@@ -272,11 +257,24 @@ function devoluciones() {
             data.forEach(function (devolucion) {
                 carrito.forEach(function (producto) {
                     if (devolucion.codArticulo == producto.codArticulo) {
-                        var pLinea = document.createElement('div');
-                console.log(devolucion.CodLinea);
-                        pLinea.innerHTML = `<p>Articulo: ${producto.nombre} Cantidad comprada: ${devolucion.cantidad}</p>` +
-                   `<button class="btn btn-outline-dark mt-auto" onclick="devolucion(${devolucion.codArticulo}, ${devolucion.CodLinea})">Añadir a la devolución</button>`;
-                        devolucionesContainer.append(pLinea);
+                        
+                        var fechaActual = new Date();
+                        
+                        
+                        var fechaVenta = new Date(devolucion.fecha); 
+            
+                        console.log(devolucion.fecha);
+                        var diferenciaTiempo = fechaActual - fechaVenta;
+            
+                        var diferenciaDias = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
+            
+                        
+                        if (diferenciaDias <= 16) {
+                            var pLinea = document.createElement('div');
+                            pLinea.innerHTML = `<p>Articulo: ${producto.nombre} Cantidad comprada: ${devolucion.cantidad} </p>` +
+                                               `<button class="btn btn-outline-dark mt-auto" onclick="devolucion(${devolucion.CodLinea})">Añadir a la devolución</button>`;
+                            devolucionesContainer.append(pLinea);
+                        }
                     }
                 });
             });
@@ -300,16 +298,25 @@ $(document).ready(function () {
     });
 });
 
-function devolucion(codArticulo,codLinea) {
-    console.log(codLinea);
-    console.log(codArticulo);
+function devolucion(codLinea) {
+
     Iniciardevoluciones.forEach(function(devoluciones){
         if(devoluciones.CodLinea==codLinea){
+           
+            if(devoluciones.cantidad>devoluciones.cantidadAdevolver){
             devoluciones.cantidadAdevolver++;
+        }
+        else{
+            var loginContainer = $('#devoluciones-modal-body');
+
+            
+            loginContainer.append("<p style='color: red;'>No puedes devolver más cantidad de la que has comprado</p>");
+            
+        }
         }
     });
    
-     console.log(Iniciardevoluciones);
+     
     }
 
 
@@ -326,8 +333,10 @@ function finalizarDevolucion() {
 
             mensajeFinal.html("Devolucion realizada");
 
+            
         }
     };
+    
     xhr.send("array=" + array); 
 }
 
