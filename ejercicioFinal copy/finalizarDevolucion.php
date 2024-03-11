@@ -17,13 +17,16 @@ foreach ($devoluciones as $producto) {
     $codLinea = $producto['CodLinea'];
     $cantidadAdevolver = $producto['cantidadAdevolver'];
     $cantidad = $producto['cantidad'];
-    $precio = $producto['precio'];
+    $precio = $producto['precio'] - (($producto['precio']/$cantidad) * $cantidadAdevolver);
     $cantidadRestante = $cantidad - $cantidadAdevolver;
-$codArticulo=$producto['codArticulo'];
+
+    $codArticulo = $producto['codArticulo'];
+
     if ($cantidadAdevolver > 0) {
         if ($cantidadRestante > 0) {
             $sqlLineas = "UPDATE lineas
-                          SET cantidad = $cantidadRestante
+                          SET cantidad = $cantidadRestante,
+                          precio = $precio
                           WHERE CodLinea = $codLinea";
         } else {
             $sqlLineas = "DELETE FROM lineas WHERE CodLinea = $codLinea";
@@ -32,7 +35,7 @@ $codArticulo=$producto['codArticulo'];
         $sqlArticulos = "UPDATE articulos
                          SET cantidad = cantidad + $cantidadAdevolver
                          WHERE codArticulo = $codArticulo";
-        
+
         $conn->query($sqlLineas);
         $conn->query($sqlArticulos);
     }

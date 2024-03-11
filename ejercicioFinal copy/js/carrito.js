@@ -1,6 +1,4 @@
 var carrito = [];
-
-
 var Iniciardevoluciones = [];  
 
 function inicializarDevoluciones(datos) {
@@ -25,8 +23,7 @@ function inicializarCarrito(datos) {
         cantidadEnCarrito: 0
     }));
 }
-
-function agregarAlCarrito(codArticulo) {
+function agregarAlCarrito(codArticulo, cantidad) {
     var producto = null;
 
     for (var i = 0; i < carrito.length; i++) {
@@ -36,12 +33,14 @@ function agregarAlCarrito(codArticulo) {
         }
     }
 
-    
-        if (producto.cantidadDisponible > 0 && producto.cantidadEnCarrito < producto.cantidadDisponible) {
-            producto.cantidadEnCarrito++;
+    if (producto && producto.cantidadDisponible > 0) {
+            
+            cantidad = parseInt(cantidad, 10);
+            producto.cantidadEnCarrito += cantidad;
             var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
             $('#carrito-cantidad').text(cantidadTotal);
-        } 
+        
+    }
 }
 
 
@@ -110,9 +109,10 @@ function obtenerDatos() {
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            inicializarCarrito(data);          
+            inicializarCarrito(data);
 
             var productosContainer = $('#productos-container');
+            productosContainer.empty();
 
             data.forEach(function (producto) {
                 var diferencia = producto.cantidad - producto.cantidadMinima;
@@ -132,7 +132,10 @@ function obtenerDatos() {
                             </div>
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
-                                    <a class="btn btn-outline-dark mt-auto" onclick="agregarAlCarrito(${producto.codArticulo})">Añadir al carrito</a>
+                                    <div class="input-group">
+                                    <input type="number" id="cantidad-${producto.codArticulo}" value="1" min="1" max="${producto.cantidadDisponible}" class="form-control" />
+                                        <button class="btn btn-outline-dark mt-auto" onclick="agregarAlCarrito(${producto.codArticulo}, $('#cantidad-${producto.codArticulo}').val())">Añadir al carrito</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,6 +147,7 @@ function obtenerDatos() {
         },
     });
 }
+
 
 
 function login() {
@@ -189,7 +193,7 @@ function finalizarCompra() {
 
             mensajeFinal.html("Gracias por su compra");
 
-            
+            obtenerDatos();
         }
     };
     xhr.send("dni=" + dni + "&array=" + array); 
@@ -216,9 +220,7 @@ function mostrarVentas() {
         dataType: 'json',
         success: function (data) {
             var ventasContainer = $('#ventas-modal-body');
-            var dniCookie = Cookies.get('dni');
 
-           
             ventasContainer.empty();
 
             data.forEach(function (venta) {
@@ -240,56 +242,44 @@ $(document).ready(function () {
 });
 
 
+
 function devoluciones() {
     var dniCookie = Cookies.get('dni');
-   if(dniCookie){
-    $.ajax({
-        url: 'devolucion.php',
-        type: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            inicializarDevoluciones(data);
-            var devolucionesContainer = $('#devoluciones-modal-body');
-           
-   
-            devolucionesContainer.empty();
+    if (dniCookie) {
+        $.ajax({
+            url: 'devolucion.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                inicializarDevoluciones(data);
+                var devolucionesContainer = $('#devoluciones-modal-body');
 
-            data.forEach(function (devolucion) {
-                carrito.forEach(function (producto) {
-                    if (devolucion.codArticulo == producto.codArticulo) {
-                        
-                        var fechaActual = new Date();
-                        
-                        
-                        var fechaVenta = new Date(devolucion.fecha); 
-            
-                        console.log(devolucion.fecha);
-                        var diferenciaTiempo = fechaActual - fechaVenta;
-            
-                        var diferenciaDias = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
-            
-                        
-                        if (diferenciaDias <= 16) {
-                            var pLinea = document.createElement('div');
-                            pLinea.innerHTML = `<p>Articulo: ${producto.nombre} Cantidad comprada: ${devolucion.cantidad} </p>` +
-                                               `<button class="btn btn-outline-dark mt-auto" onclick="devolucion(${devolucion.CodLinea})">Añadir a la devolución</button>`;
-                            devolucionesContainer.append(pLinea);
+                devolucionesContainer.empty();
+
+                data.forEach(function (devolucion) {
+                    carrito.forEach(function (producto) {
+                        if (devolucion.codArticulo == producto.codArticulo) {
+                            var fechaActual = new Date();
+                            var fechaVenta = new Date(devolucion.fecha);
+                            var diferenciaTiempo = fechaActual - fechaVenta;
+                            var diferenciaDias = Math.ceil(diferenciaTiempo / (1000 * 60 * 60 * 24));
+
+                            if (diferenciaDias <= 16) {
+                                var pLinea = document.createElement('div');
+                                pLinea.innerHTML = `<p>Articulo: ${producto.nombre} Cantidad comprada: ${devolucion.cantidad} </p>` +
+                                `<input type="number" id="cantidad-${devolucion.CodLinea}" value="1" min="1" max="${devolucion.cantidad }" class="form-control" />` +
+                                    `<button class="btn btn-outline-dark mt-auto" onclick="devolucion(${devolucion.CodLinea}, $('#cantidad-${devolucion.CodLinea}').val())">Añadir a la devolución</button>`;
+                                devolucionesContainer.append(pLinea);
+                            }
                         }
-                    }
+                    });
                 });
-            });
-           
-        }
-    });
-}else{
-   
-    var loginContainer = $('#devoluciones-modal-body');
-            
-    
-    loginContainer.append("Logeate antes de realizar una devolucion");
-   
-  
-}
+            }
+        });
+    } else {
+        var loginContainer = $('#devoluciones-modal-body');
+        loginContainer.append("Inicia sesión antes de realizar una devolución");
+    }
 }
 
 $(document).ready(function () {
@@ -298,26 +288,21 @@ $(document).ready(function () {
     });
 });
 
-function devolucion(codLinea) {
-
-    Iniciardevoluciones.forEach(function(devoluciones){
-        if(devoluciones.CodLinea==codLinea){
-           
-            if(devoluciones.cantidad>devoluciones.cantidadAdevolver){
-            devoluciones.cantidadAdevolver++;
-        }
-        else{
-            var loginContainer = $('#devoluciones-modal-body');
-
-            
-            loginContainer.append("<p style='color: red;'>No puedes devolver más cantidad de la que has comprado</p>");
-            
-        }
+function devolucion(codLinea, cantidad) {
+    var devolucionesContainer = $('#devoluciones-modal-body');
+    Iniciardevoluciones.forEach(function (devoluciones) {
+        if (devoluciones.CodLinea == codLinea) {
+            if (cantidad > 0 && (devoluciones.cantidad - devoluciones.cantidadAdevolver) >= cantidad) {
+                devoluciones.cantidadAdevolver += cantidad;
+                devolucionesContainer.append("<p'>Añadido correctamente</p>");
+            } else {
+               
+                devolucionesContainer.append("<p style='color: red;'>La cantidad a devolver no es válida</p>");
+            }
         }
     });
-   
-     
-    }
+}
+
 
 
 function finalizarDevolucion() {
@@ -332,7 +317,7 @@ function finalizarDevolucion() {
             var mensajeFinal = $('#mensajeFinal');
 
             mensajeFinal.html("Devolucion realizada");
-
+            obtenerDatos();
             
         }
     };
