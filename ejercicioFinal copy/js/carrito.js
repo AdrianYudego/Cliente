@@ -152,57 +152,76 @@ function obtenerDatos() {
 
 function login() {
     var dni = $('#dni').val();
+    var registroModalBody = $('#registro-modal-body');
+ 
 
     $.ajax({
         url: 'usuario.php',
-        type: 'POST', 
+        type: 'POST',
         dataType: 'json',
-        data: { dni: dni },  
+        data: { dni: dni },
         success: function (data) {
             var logeo = $('#logeo');
-            var contLogeo;
-
-            if (data.nombre) {
-                contLogeo = "Bienvenido " + data.nombre;
+           
+                
                 Cookies.set('dni', dni);
                 $('#login-modal').modal('hide');
-            } else {
-                contLogeo = "Usuario incorrecto, prueba de nuevo";
-            }
 
-            logeo.empty().append(contLogeo);
+                registroModalBody.html("<form id='registro'>" +
+                "  <label for='nombre'>Nombre:</label>" +
+                "  <input type='text' id='nombre' name='nombre' value='" + data.nombre + "' required><br>" +
+                "  <label for='apellidos'>Apellidos:</label>" +
+                "  <input type='text' id='apellidos' name='apellidos' value='" + data.apellidos + "' required><br>" +
+                "  <label for='direccion'>Dirección:</label>" +
+                "  <input type='text' id='direccion' name='direccion' value='" + data.direccion + "' required><br>" +
+                "  <label for='poblacion'>Población:</label>" +
+                "  <input type='text' id='poblacion' name='poblacion' value='" + data.poblacion + "' required><br>" +
+                "  <label for='correo'>Correo:</label>" +
+                "  <input type='email' id='correo' name='correo' value='" + data.correo + "' required><br>" +
+                "  <input type='hidden' id='dniForm' name='dni' value='" + dni + "'>" +
+                "  <input type='hidden' id='comprobador' name='comprobador' value='modificar'>" +
+                "</form>");
+                $('#registro-modal').modal('show');
+            
+
+            logeo.empty().append("Bienvenido " + data.nombre);
         },
         error: function (xhr, status, error) {
-            var registroModalBody = $('#registro-modal-body');
+           
 
-            var contFormulario = "<form id='registro-form'>" +
-                                "  <label for='nombre'>Nombre:</label>" +
-                                "  <input type='text' id='nombre' name='nombre' required><br>" +
-                                "  <label for='apellidos'>Apellidos:</label>" +
-                                "  <input type='text' id='apellidos' name='apellidos' required><br>" +
-                                "  <label for='direccion'>Dirección:</label>" +
-                                "  <input type='text' id='direccion' name='direccion' required><br>" +
-                                "  <label for='poblacion'>Población:</label>" +
-                                "  <input type='text' id='poblacion' name='poblacion' required><br>" +
-                                "  <label for='correo'>Correo:</label>" +
-                                "  <input type='email' id='correo' name='correo' required><br>" +
-                                "  <input type='hidden' id='dni-hidden' name='dni' value='" + dni + "'>" +
-                                "</form>";
-
-            registroModalBody.empty().append(contFormulario);
-
+            registroModalBody.empty().append("<form id='registro'>" +
+            "  <label for='nombre'>Nombre:</label>" +
+            "  <input type='text' id='nombre' name='nombre' required><br>" +
+            "  <label for='apellidos'>Apellidos:</label>" +
+            "  <input type='text' id='apellidos' name='apellidos' required><br>" +
+            "  <label for='direccion'>Dirección:</label>" +
+            "  <input type='text' id='direccion' name='direccion' required><br>" +
+            "  <label for='poblacion'>Población:</label>" +
+            "  <input type='text' id='poblacion' name='poblacion' required><br>" +
+            "  <label for='correo'>Correo:</label>" +
+            "  <input type='email' id='correo' name='correo' required><br>" +
+            "  <input type='hidden' id='dniForm' name='dni' value='" + dni + "'>" +
+            "  <input type='hidden' id='comprobador' name='comprobador' value='insertar'>" +
+            "</form>");
             $('#registro-modal').modal('show');
         }
     });
 }
 
-function registrarUsuario() {
-    var infoUsuario = $('#registro-form').serialize();
+function usuario() {
+    var infoUsuario = $('#registro').serialize();
 
     $.ajax({
         url: 'login.php',
         type: 'POST',
-        data: { infoUsuario: infoUsuario }
+        data: { infoUsuario: infoUsuario },
+        success: function(response) {
+            var logeo = $('#logeo');
+            var nombreValue = $('#registro [name=nombre]').val();
+
+            logeo.empty().append( "Bienvenido " + nombreValue);
+            $('#login-modal').modal('hide');
+        }
     });
 }
 

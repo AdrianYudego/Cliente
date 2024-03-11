@@ -20,10 +20,18 @@ $direccion = $usuario['direccion'];
 $poblacion = $usuario['poblacion'];
 $correo = $usuario['correo'];
 $dni = $usuario['dni'];
+$comprobador=$usuario['comprobador'];
+
+if($comprobador=="insertar"){
+
 
 $sql = "INSERT INTO usuarios (nombre, apellidos, direccion, poblacion, correo, dni) 
         VALUES ('$nombre', '$apellidos', '$direccion', '$poblacion', '$correo', '$dni')";
-
+}else{
+    $sql = "UPDATE usuarios 
+            SET nombre = '$nombre', apellidos = '$apellidos', direccion = '$direccion', poblacion = '$poblacion', correo = '$correo' 
+            WHERE dni = '$dni'";
+}
 $conn->query($sql);
 
 $conn->close();
