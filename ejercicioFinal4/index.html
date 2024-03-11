@@ -21,7 +21,6 @@
         <!-- Botón de Login -->
         <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#login-modal" id="logeo" >Login</span>
         <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#ventas-modal" id="ventas" >Mostrar ventas</span>
-        <span class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#devoluciones-modal" id="devoluciones" >Devolver productos</span>
         <!-- Contenedor de la imagen del carrito -->
         <span id="carrito-icon-container" data-bs-toggle="modal" data-bs-target="#carrito-modal">
             <img src="imagenes/carrito.png" alt="Carrito" id="carrito-icon" style="height: 20px" />
@@ -81,7 +80,7 @@
                     <!-- Formulario de Login -->
                     <form id="login-form">
                         <div class="mb-3">
-                            <label for="dni" class="form-label" id="msjDNI">DNI:</label>
+                            <label for="dni" class="form-label">DNI:</label>
                             <input type="text" class="form-control" id="dni" name="dni" required>
                         </div>
                         <button type="button" onclick="login()" class="btn btn-primary">Login</button>
@@ -100,45 +99,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="ventas-modal-body">
-                
-            </div>
-        </div>
-    </div>
-</div>
-<div id="devoluciones-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Elige una devolución</h5>
-                
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="devoluciones-modal-body">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="finalizarDevolucion()">Finalizar devolución</button>
-
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="registro-modal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Complete los campos</h5>
-                
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="registro-modal-body">
-                
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="registrarUsuario()">Finalizar registro</button>
-
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <script>
+      
+                    mostrarVentas();
+                 
+                </script>
             </div>
         </div>
     </div>

@@ -154,27 +154,58 @@ function login() {
     var dni = $('#dni').val();
 
     $.ajax({
-        url: 'usuario.php?dni=' + dni,
-        type: 'GET',
+        url: 'usuario.php',
+        type: 'POST', 
         dataType: 'json',
+        data: { dni: dni },  
         success: function (data) {
             var logeo = $('#logeo');
             var contLogeo;
 
             if (data.nombre) {
-                
                 contLogeo = "Bienvenido " + data.nombre;
                 Cookies.set('dni', dni);
                 $('#login-modal').modal('hide');
             } else {
-                
                 contLogeo = "Usuario incorrecto, prueba de nuevo";
             }
 
             logeo.empty().append(contLogeo);
         },
+        error: function (xhr, status, error) {
+            var registroModalBody = $('#registro-modal-body');
+
+            var contFormulario = "<form id='registro-form'>" +
+                                "  <label for='nombre'>Nombre:</label>" +
+                                "  <input type='text' id='nombre' name='nombre' required><br>" +
+                                "  <label for='apellidos'>Apellidos:</label>" +
+                                "  <input type='text' id='apellidos' name='apellidos' required><br>" +
+                                "  <label for='direccion'>Dirección:</label>" +
+                                "  <input type='text' id='direccion' name='direccion' required><br>" +
+                                "  <label for='poblacion'>Población:</label>" +
+                                "  <input type='text' id='poblacion' name='poblacion' required><br>" +
+                                "  <label for='correo'>Correo:</label>" +
+                                "  <input type='email' id='correo' name='correo' required><br>" +
+                                "  <input type='hidden' id='dni-hidden' name='dni' value='" + dni + "'>" +
+                                "</form>";
+
+            registroModalBody.empty().append(contFormulario);
+
+            $('#registro-modal').modal('show');
+        }
     });
 }
+
+function registrarUsuario() {
+    var infoUsuario = $('#registro-form').serialize();
+
+    $.ajax({
+        url: 'login.php',
+        type: 'POST',
+        data: { infoUsuario: infoUsuario }
+    });
+}
+
 
 function finalizarCompra() {
     var dni = Cookies.get('dni');

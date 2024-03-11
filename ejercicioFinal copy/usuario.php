@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("No hay conexión: " . $conn->connect_error);
 }
 
-$dni =$_GET['dni'];
+$dni =$_POST['dni'];
 
 
     $query = "SELECT * FROM usuarios WHERE DNI = '" . $dni . "'";
@@ -27,10 +27,9 @@ $dni =$_GET['dni'];
     if ($usuario) {
         session_start();
         $_SESSION['dni'] = $dni;
-
+    
         echo json_encode($usuario);
     } 
-
 
 $conn->close();
 ?>
