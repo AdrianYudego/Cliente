@@ -82,7 +82,14 @@ function mostrarContenidoCarrito() {
             
             totalPagar += parseFloat(precio);
 
-            carritoContenido.append(`<p>${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito} - Precio: ${precio} <button type="button" onclick="eliminar(${producto.codArticulo})">Quitar</button></p>`);
+            carritoContenido.append(`
+            <p>
+                ${producto.nombre} - Cantidad: ${producto.cantidadEnCarrito} - Precio: ${precio} 
+                <input type="number" id="inputCantidad_${producto.codArticulo}" min="1" value="1">
+                <button type="button" onclick="eliminar(${producto.codArticulo})">Quitar</button>
+            </p>
+        `);
+        
         });
 
         
@@ -99,12 +106,19 @@ function eliminar(codArticulo) {
             break;
         }
     }
-    if (producto && producto.cantidadEnCarrito > 0) {
-        producto.cantidadEnCarrito--;
+
+    if (producto) {
+        var inputCantidad = parseInt($(`#inputCantidad_${codArticulo}`).val()) ;
+        
+        if (producto.cantidadEnCarrito >= inputCantidad) {
+            producto.cantidadEnCarrito -= inputCantidad;
+        } else {
+            producto.cantidadEnCarrito = 0;
+        }
+
         var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
         $('#carrito-cantidad').text(cantidadTotal);
 
-    
         mostrarContenidoCarrito();
     }
 }
@@ -284,24 +298,38 @@ $(document).ready(function () {
 
 function mostrarVentas() {
    
+    var dni= Cookies.get('dni');
+console.log(dni);
+   
+    if (!dni) {
+        $('#ventas-modal-body').html('<p>Por favor, inicia sesión primero.</p>');
+       
+    }else{
+
     $.ajax({
         url: 'ventas.php',
         type: 'GET',
         dataType: 'json',
+        data: { dni: dni },
         success: function (data) {
             var ventasContainer = $('#ventas-modal-body');
-
             ventasContainer.empty();
 
-            data.forEach(function (venta) {
-                var vLinea = document.createElement('div');
-                vLinea.innerHTML = `<p>Codigo: ${venta.codVenta} Fecha: ${venta.fecha} DNI: ${venta.DNI} </p>`;
-               
-                ventasContainer.append(vLinea);
-            });
-        
+            if (data.length === 0) {
+                ventasContainer.append('<p>No hay ventas asociadas a este usuario.</p>');
+            } else {
+                data.forEach(function (venta) {
+                    var vLinea = document.createElement('div');
+                    vLinea.innerHTML = `<p>Codigo: ${venta.codVenta} Fecha: ${venta.fecha} DNI: ${venta.DNI} </p>`;
+                    ventasContainer.append(vLinea);
+                });
+            }
+        },
+        error: function () {
+            $('#ventas-modal-body').html('<p>Error al cargar las ventas.</p>');
         }
     });
+}
 }
 
 
