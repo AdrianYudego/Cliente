@@ -346,8 +346,8 @@ function devolucion(codLinea, cantidad) {
                 devoluciones.cantidadAdevolver += cantidad;
                 devolucionesContainer.append("<p'>Añadido correctamente</p>");
             } else {
-               
-                devolucionesContainer.append("<p style='color: red;'>La cantidad a devolver no es válida</p>");
+                devoluciones.cantidadAdevolver=devoluciones.cantidad;
+                devolucionesContainer.append("<p style='color: red;'>Añadidos el máximo de productos</p>");
             }
         }
     });
