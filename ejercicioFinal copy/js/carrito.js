@@ -24,7 +24,7 @@ function inicializarCarrito(datos) {
     }));
 }
 function agregarAlCarrito(codArticulo, cantidad) {
-    var producto = null;
+    var producto;
 
     for (var i = 0; i < carrito.length; i++) {
         if (codArticulo == carrito[i].codArticulo) {
@@ -34,14 +34,28 @@ function agregarAlCarrito(codArticulo, cantidad) {
     }
 
     if (producto && producto.cantidadDisponible > 0) {
-            
-            cantidad = parseInt(cantidad, 10);
+        cantidad = parseInt(cantidad, 10);
+        var cantidadTotalEnCarrito = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
+
+        if (cantidadTotalEnCarrito + cantidad <= producto.cantidadDisponible) {
             producto.cantidadEnCarrito += cantidad;
-            var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
-            $('#carrito-cantidad').text(cantidadTotal);
-        
+        } else {
+           
+            var cantidadRestante = producto.cantidadDisponible - cantidadTotalEnCarrito;
+            producto.cantidadEnCarrito += cantidadRestante;
+
+            var mensajeFinal = $('#mensajeFinal');
+            mensajeFinal.html("Se ha añadido la cantidad máxima disponible al carrito.");
+        }
+
+        var cantidadTotal = carrito.reduce((total, p) => total + p.cantidadEnCarrito, 0);
+        $('#carrito-cantidad').text(cantidadTotal);
+    } else {
+        var mensajeFinal = $('#mensajeFinal');
+        mensajeFinal.html("No puedes añadir más cantidad de la disponible");
     }
 }
+
 
 
 
@@ -133,7 +147,7 @@ function obtenerDatos() {
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center">
                                     <div class="input-group">
-                                    <input type="number" id="cantidad-${producto.codArticulo}" value="1" min="1" max="${producto.cantidadDisponible}" class="form-control" />
+                                    <input type="number" id="cantidad-${producto.codArticulo}" value="1" min="1"" class="form-control" />
                                         <button class="btn btn-outline-dark mt-auto" onclick="agregarAlCarrito(${producto.codArticulo}, $('#cantidad-${producto.codArticulo}').val())">Añadir al carrito</button>
                                     </div>
                                 </div>
