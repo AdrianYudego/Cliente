@@ -242,11 +242,17 @@ function finalizarCompra() {
             var mensajeFinal = $('#mensajeFinal');
 
             mensajeFinal.html("Gracias por su compra");
-
+            var cantidadTotal = 0;
+            $('#carrito-cantidad').text(cantidadTotal);
+            mostrarContenidoCarrito();
             obtenerDatos();
         }
     };
     xhr.send("dni=" + dni + "&array=" + array); 
+    
+
+
+
 }
 }
 
@@ -344,9 +350,11 @@ function devolucion(codLinea, cantidad) {
         if (devoluciones.CodLinea == codLinea) {
             if (cantidad > 0 && (devoluciones.cantidad - devoluciones.cantidadAdevolver) >= cantidad) {
                 devoluciones.cantidadAdevolver += cantidad;
+               
                 devolucionesContainer.append("<p'>Añadido correctamente</p>");
             } else {
                 devoluciones.cantidadAdevolver=devoluciones.cantidad;
+                
                 devolucionesContainer.append("<p style='color: red;'>Añadidos el máximo de productos</p>");
             }
         }
